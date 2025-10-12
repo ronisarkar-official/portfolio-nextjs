@@ -1,0 +1,22 @@
+{
+	"projects": [
+		{
+			"name": "NextJs Blog App",
+			"description": "A blog app built with NextJs, TailwindCSS, and PostgreSQL. It features user authentication, a rich text editor, and a comment system.",
+			"image": "/project1.png",
+			"tags": ["NextJS", "TailwindCSS", "Sanity"],
+			"links": [
+				{
+					"name": "Website",
+					"href": "https://www.spechype.com",
+					"icon": "globe"
+				},
+				{
+					"name": "Source",
+					"href": "https://github.com/ronisarkar-official/nextjs-blog",
+					"icon": "github"
+				}
+			]
+		}
+	]
+}

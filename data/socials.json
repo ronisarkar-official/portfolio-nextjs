@@ -1,0 +1,19 @@
+{
+  "socials": [
+    {
+      "name": "LinkedIn",
+      "href": "https://linkedin.com/in/ronisarkar",
+      "icon": "linkedin"
+    },
+    {
+      "name": "GitHub",
+      "href": "https://github.com/ronisarkar-official",
+      "icon": "github"
+    },
+    {
+      "name": "Email",
+      "href": "https://mail.google.com/mail/?view=cm&fs=1&to=ronisarkar10938@gmail.com&su=Hello%20Roni&body=Hi%20Roni%2C%0A%0AI%20want%20to%20connect.",
+      "icon": "mail"
+    }
+  ]
+}

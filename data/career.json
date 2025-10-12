@@ -1,0 +1,18 @@
+{
+	"career": [
+		{
+			"name": "Independent Projects & Freelance",
+			"href": "/",
+			"title": "Full-Stack Developer (Student / Project Lead)",
+			"logo": "/freelancer.png",
+			"start": "Sep 2022",
+			"end": "",
+			"description": [
+				"Developed NextJs Blog App — a NextJS + Tailwind CSS + Sanity  blog app with authentication, admin panel, post CRUD, seo optimization, search and pagination",
+				"Designed MySQL schema, implemented server-side logic in PHP and added client-side validation and responsive UI",
+				
+				"Practiced end-to-end development: requirements → implementation → deployment; worked with version control and responsive design"
+			]
+		}
+	]
+}

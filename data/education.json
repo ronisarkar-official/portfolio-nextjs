@@ -1,0 +1,25 @@
+{
+	"education": [
+		{
+			"name": "Murshidabad College of Engineering & Technology",
+			"href": "",
+			"title": "Bachelor of Computer Applications (BCA) — Web & Software Development",
+			"logo": "https://www.mcetbhb.net/images/logo.svg",
+			"start": "Jun 2022",
+			"end": "Jul 2025",
+			"description": [
+				"Completed BCA with a focus on web development and software engineering fundamentals",
+				"Final Year Project: SmartLibrary — a PHP + Tailwind CSS Library Management System (authentication, admin panel, book CRUD and search)",
+				"Built core pages: admin, login, register, add book; implemented server-side logic with PHP and MySQL",
+				"Hands-on with MERN basics, responsive UI with Tailwind, and project-level version control"
+			],
+			"links": [
+				{
+					"name": "Final Year Project (SmartLibrary)",
+					"href": "https://mcet.free.nf/",
+					"icon": "globe"
+				}
+			]
+		}
+	]
+}
