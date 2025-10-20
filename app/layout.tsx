@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 	display: 'swap',
 });
 
-const BASE_URL = 'https://www.spechype.com'; // update if different
+const BASE_URL = 'https://roni-sarkar.vercel.app'; // update if different
 const AUTHOR = {
 	name: 'Roni Sarkar',
 	url: BASE_URL,
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 		siteName: 'ronisarkar',
 		images: [
 			{
-				url: `${BASE_URL}/og-image.jpg`, // generate a good OG image for sharing
+				url: `https://ik.imagekit.io/2zeqzsn1n/ronisarkar.webp?updatedAt=1760951107055`, // generate a good OG image for sharing
 				width: 1200,
 				height: 630,
 				alt: 'Roni Sarkar — Software Engineer & Web Developer',
@@ -94,8 +94,8 @@ export default function RootLayout({
 		name: 'Roni Sarkar',
 		url: BASE_URL,
 		sameAs: [
-			'https://github.com/your-github', // replace with real profiles
-			'https://www.linkedin.com/in/your-linkedin',
+			'https://github.com/ronisarkar-official', // replace with real profiles
+			'https://www.linkedin.com/in/ronisarkar',
 		],
 		jobTitle: 'Software Engineer & Web Developer',
 		worksFor: {
