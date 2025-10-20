@@ -3,8 +3,67 @@
 		{
 			"name": "NextJs Blog App",
 			"description": "A blog app built with NextJs, TailwindCSS, and PostgreSQL. It features user authentication, a rich text editor, and a comment system.",
-			"image": "/project1.png",
-			"tags": ["NextJS", "TailwindCSS", "Sanity"],
+			"image": "https://ik.imagekit.io/2zeqzsn1n/spechype.webp?q-auto",
+			"tags": ["NextJS", "TailwindCSS"],
+			"links": [
+				{
+					"name": "Website",
+					"href": "https://www.spechype.com",
+					"icon": "globe"
+				},
+				{
+					"name": "Source",
+					"href": "https://github.com/ronisarkar-official/nextjs-blog",
+					"icon": "github"
+				}
+			]
+		},
+		{
+			"name": "Pixivo - a image sharing platform",
+			"description": "A platform for sharing and discovering artwork, built with NextJs, TailwindCSS, and PostgreSQL.",
+			"image": "https://ik.imagekit.io/2zeqzsn1n/pixivo.webp?q-auto",
+			"tags": ["MongoDB", "TailwindCSS", "ExpressJS", "Ejs", "NodeJS"],
+			"links": [
+				{
+					"name": "Website",
+					"href": "https://www.spechype.com",
+					"icon": "globe"
+				},
+				{
+					"name": "Source",
+					"href": "https://github.com/ronisarkar-official/nextjs-blog",
+					"icon": "github"
+				}
+			]
+		},
+		{
+			"name": "Smart Library Management System",
+			"description": "A web application for managing library resources, built with Php, TailwindCSS, and MySQL.",
+			"image": "https://ik.imagekit.io/2zeqzsn1n/smart-library.webp?q-auto",
+			"tags": ["MongoDB", "TailwindCSS", "ExpressJS", "Ejs", "NodeJS"],
+			"links": [
+				{
+					"name": "Website",
+					"href": "https://mcet.free.nf/?i=1",
+					"icon": "globe"
+				},
+				{
+					"name": "Source",
+					"href": "https://github.com/ronisarkar-official/nextjs-blog",
+					"icon": "github"
+				},
+				{
+					"name": "Final Year Project (SmartLibrary)",
+					"href": "https://github.com/ronisarkar-official/smart-library",
+					"icon": "globe"
+				}
+			]
+		},
+		{
+			"name": "Old Portfolio Website",
+			"description": "A web application for showcasing my projects and skills, built with Php, TailwindCSS, and MySQL.",
+			"image": "https://ik.imagekit.io/2zeqzsn1n/old-portfolio.webp?q-auto",
+			"tags": ["MongoDB", "TailwindCSS", "ExpressJS", "Ejs", "NodeJS"],
 			"links": [
 				{
 					"name": "Website",

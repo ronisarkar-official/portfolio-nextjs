@@ -23,13 +23,12 @@ export function ProjectCard({ project }: Props) {
 		<Card className="flex flex-col">
 			<CardHeader>
 				{image && (
-					<div className="border border-gray-200 rounded-xl overflow-hidden">
+					<div className="relative w-full max-w-[500px] aspect-[5/3] border rounded-xl overflow-hidden">
 						<Image
 							src={image}
 							alt={name}
-							width={500}
-							height={400}
-							className="h-fit w-fit object-cover object-top "
+							fill
+							className="object-top"
 						/>
 					</div>
 				)}

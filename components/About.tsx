@@ -27,10 +27,10 @@ const About = () => {
 			</div>
 
 			<div className="space-y-4">
-				<h3 className="text-2xl font-bold text-foreground">Tech Stack</h3>
+				<h3 className="text-3xl font-semibold text-foreground">Tech Stack</h3>
 				<div className="flex justify-start">
 					<img
-						src="https://skillicons.dev/icons?i=html,css,js,php,mysql,react,tailwind,threejs,nodejs,nextjs,typescript,mongodb,express,github,vscode"
+						src="https://skillicons.dev/icons?i=html,css,js,php,mysql,react,tailwind,threejs,nodejs,nextjs,typescript,mongodb,express,github,vscode,sanity"
 						alt="Technology stack icons"
 						className="h-fit w-fit"
 						loading="lazy"

@@ -9,19 +9,19 @@ import { Menu, X } from 'lucide-react';
 
 const navLinks = [
 	{
-		name: 'home',
+		name: 'Home',
 		href: '/',
 	},
 	{
-		name: 'projects',
+		name: 'Projects',
 		href: '/projects',
 	},
 	{
-		name: 'blog',
+		name: 'Blogs',
 		href: '/blog',
 	},
 	{
-		name: 'contact',
+		name: 'Contact',
 		href: '/contact',
 	},
 ];

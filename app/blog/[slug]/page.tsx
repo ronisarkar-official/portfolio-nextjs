@@ -6,6 +6,14 @@ import { ArrowLeftIcon, CalendarIcon, ClockIcon, AlertTriangleIcon, Edit3Icon } 
 import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/Badge';
 import BlogImage from '@/components/BlogImage';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 
 // Revalidate every 60 seconds to get fresh posts
 export const revalidate = 60;
@@ -86,13 +94,27 @@ export default async function BlogPostPage({
 		<div className="min-h-screen bg-background">
 			{/* Navigation */}
 			<nav className="mb-12">
-				<LinkWithIcon
-					href="/blog"
-					position="left"
-					icon={<ArrowLeftIcon className="size-4" />}
-					text="Back to blog"
-					className="text-muted-foreground transition-colors hover:text-foreground"
-				/>
+				<Breadcrumb>
+					<BreadcrumbList>
+						<BreadcrumbItem>
+							<BreadcrumbLink href="/">Home</BreadcrumbLink>
+						</BreadcrumbItem>
+						<BreadcrumbSeparator />
+						<BreadcrumbItem>
+							<BreadcrumbLink href="/blog">Blogs</BreadcrumbLink>
+						</BreadcrumbItem>
+						<BreadcrumbSeparator />
+						<BreadcrumbItem>
+							
+							<BreadcrumbPage
+								title={title}
+								aria-label={title}>
+								{title &&
+									(title.length > 10 ? `${title.slice(0, 10)}...` : title)}
+							</BreadcrumbPage>
+						</BreadcrumbItem>
+					</BreadcrumbList>
+				</Breadcrumb>
 			</nav>
 
 			<article className="mx-auto max-w-4xl px-4">
@@ -203,7 +225,7 @@ export default async function BlogPostPage({
 
 									{/* Publication dates */}
 									<div className="flex flex-col gap-1">
-										{shouldShowUpdated && updatedAt ?
+										{shouldShowUpdated && updatedAt ? (
 											<>
 												<div className="flex items-center gap-1.5">
 													<CalendarIcon className="h-3.5 w-3.5" />
@@ -218,13 +240,14 @@ export default async function BlogPostPage({
 													</span>
 												</div>
 											</>
-										:	<div className="flex items-center gap-1.5">
+										) : (
+											<div className="flex items-center gap-1.5">
 												<CalendarIcon className="h-3.5 w-3.5" />
 												<span className="font-medium">
 													Published {formatDate(publishedAt ?? '')}
 												</span>
 											</div>
-										}
+										)}
 									</div>
 								</div>
 

@@ -3,6 +3,7 @@
 import { useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import emailjs from '@emailjs/browser';
 import { Toaster, toast } from 'react-hot-toast';
+import { Send } from 'lucide-react';
 
 type FormState = {
 	firstName: string;
@@ -102,9 +103,6 @@ export default function Contact() {
 
 			<div className="max-w-screen-xl mx-auto px-4 text-gray-600 dark:text-gray-300 md:px-8">
 				<div className="max-w-lg mx-auto space-y-3 sm:text-center">
-					<h3 className="text-indigo-600 dark:text-indigo-400 font-semibold">
-						Contact
-					</h3>
 					<p className="text-gray-800 dark:text-gray-100 text-3xl font-semibold sm:text-4xl">
 						Get in touch
 					</p>
@@ -201,13 +199,41 @@ export default function Contact() {
 						<button
 							type="submit"
 							disabled={loading}
-							className={`w-full px-4 py-2 font-medium rounded-lg duration-150 disabled:opacity-60 ${
-								loading ?
-									'bg-indigo-500 text-white'
-								:	'bg-indigo-600 hover:bg-indigo-500 text-white'
+							className={`w-full flex items-center justify-center gap-2 px-4 py-2 font-medium rounded-lg transition-transform duration-150  disabled:opacity-60 disabled:cursor-not-allowed active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 ${
+								loading ? ' text-white' : ' hover:bg-gray-900 border text-white'
 							}`}
-							aria-busy={loading}>
-							{loading ? 'Sending...' : 'Submit'}
+							aria-busy={loading}
+							aria-live="polite">
+							{loading ?
+								<>
+									<svg
+										className="h-5 w-5 animate-spin"
+										viewBox="0 0 24 24"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+										aria-hidden="true">
+										<circle
+											cx="12"
+											cy="12"
+											r="10"
+											stroke="currentColor"
+											strokeWidth="4"
+											className="opacity-25"
+										/>
+										<path
+											className="opacity-75"
+											fill="currentColor"
+											d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+										/>
+									</svg>
+									<span>Sending...</span>
+									<span className="sr-only">Sending</span>
+								</>
+							:	<>
+									<span>Submit</span>
+									<Send />
+								</>
+							}
 						</button>
 					</form>
 				</div>

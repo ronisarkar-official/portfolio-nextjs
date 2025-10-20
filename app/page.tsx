@@ -21,6 +21,7 @@ import LinkWithIcon from '@/components/LinkWithIcon';
 import About from '@/components/About';
 import Experience from '@/components/Experience';
 import { getPosts } from '../lib/posts';
+import BlogCard from '@/components/BlogCard';
 
 // const BIRTH_YEAR = 2004;
 const LIMIT = 2; // max show 2
@@ -46,10 +47,10 @@ export default async function Home() {
 
 				<div className="flex max-w-[320px] flex-col sm:max-w-full">
 					<h1 className="title text-balance text-4xl sm:text-5xl">
-						Hey, I&apos;m{' '}
+						Hey,I&apos;m{' '}
 						<span className="bg-gradient-to-r from-primary to-foreground bg-clip-text text-transparent">
 							Roni
-						</span>{' '}
+						</span>
 						👋
 					</h1>
 
@@ -133,7 +134,9 @@ export default async function Home() {
 
 			<section className="flex flex-col gap-8">
 				<div className="flex justify-between">
-					<h2 className="title text-2xl sm:text-3xl">featured projects</h2>
+					<h2 className="title text-2xl font-semibold text-foreground sm:text-3xl">
+						Featured projects
+					</h2>
 					<LinkWithIcon
 						href="/projects"
 						position="right"
@@ -146,7 +149,9 @@ export default async function Home() {
 			<Experience />
 			<section className="flex flex-col gap-8">
 				<div className="flex justify-between">
-					<h2 className="title text-3xl">recent posts</h2>
+					<h2 className="title text-3xl font-semibold text-foreground">
+						Recent posts
+					</h2>
 					<LinkWithIcon
 						href="/blog"
 						position="right"
@@ -156,35 +161,10 @@ export default async function Home() {
 				</div>
 				<div className="grid gap-4 md:grid-cols-2">
 					{posts.map((post) => (
-						<Link
+						<BlogCard
 							key={post.slug}
-							href={`/blog/${post.slug}`}
-							className="block p-4 border rounded-lg"
-							aria-label={`Read post: ${post.title}`}>
-							{post.coverImage ?
-								<img
-									src={post.coverImage}
-									alt={post.title || ''}
-									width={600}
-									height={200}
-									loading="lazy"
-									decoding="async"
-									className="w-full h-48 rounded-lg mb-2  "
-								/>
-							:	<div className="w-full h-48 rounded-lg mb-2 bg-black/5 dark:bg-white/5 flex items-center justify-center text-sm">
-									No image
-								</div>
-							}
-
-							<h2 className="text-xl font-bold mb-2">{post.title}</h2>
-
-							<p className="text-sm text-gray-500 mb-2">
-								<time dateTime={post.date || ''}>
-									{post.date || 'Unknown date'}
-								</time>
-								{post.readingTime ? ` · ${post.readingTime}` : ''}
-							</p>
-						</Link>
+							post={post}
+						/>
 					))}
 				</div>
 			</section>

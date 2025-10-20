@@ -150,6 +150,45 @@
 	scrollbar-color: var(--scrollbar-thumb) transparent; /* Transparent track */
 }
 
+:root {
+	/* next/font/google sets these variables via the classes on <body> */
+}
+
+/* Default UI/body font */
+html,
+body {
+	font-family:
+		var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
+		'Roboto Mono', monospace;
+}
+
+/* Mono usage for code, pre, kbd, etc. */
+code,
+pre,
+kbd,
+samp,
+.mono {
+	font-family:
+		var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
+		'Roboto Mono', monospace;
+	font-variant-ligatures: contextual;
+	/* optional: improve code rendering */
+	font-feature-settings:
+		'liga' 0,
+		'calt' 0;
+}
+
+/* Example small styling */
+pre {
+	overflow: auto;
+	padding: 1rem;
+	border-radius: 0.5rem;
+}
+code {
+	padding: 0.15rem 0.3rem;
+	border-radius: 0.25rem;
+}
+
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
@@ -158,5 +197,3 @@
 		@apply bg-background text-foreground;
 	}
 }
-
-

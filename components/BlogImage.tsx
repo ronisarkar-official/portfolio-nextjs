@@ -26,7 +26,7 @@ export default function BlogImage({
 
 	return (
 		<div className={cn('mb-16', className)}>
-			<div className="group relative w-full overflow-hidden rounded-2xl">
+			<div className="group relative w-full overflow-hidden rounded-lg border">
 				<Image
 					src={src}
 					alt={alt}
