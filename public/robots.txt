@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ronisarkar.spechype.com/sitemap.xml
+Host: https://ronisarkar.spechype.com

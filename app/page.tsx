@@ -1,11 +1,5 @@
-// import Experience from "@/components/Experience";
-// import LinkWithIcon from "@/components/LinkWithIcon";
-import Posts from '@/components/Posts';
-// import Projects from "@/components/Projects";
 import Socials from '@/components/Socials';
-import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
-// import { getPosts } from "@/lib/posts";
 import {
 	ArrowRightIcon,
 	CodeXml,
@@ -22,6 +16,7 @@ import About from '@/components/About';
 import Experience from '@/components/Experience';
 import { getPosts } from '../lib/posts';
 import BlogCard from '@/components/BlogCard';
+import { ImageSwiper } from '@/components/image-swiper';
 
 // const BIRTH_YEAR = 2004;
 const LIMIT = 2; // max show 2
@@ -30,18 +25,16 @@ export default async function Home() {
 	const posts = (await getPosts())
 		.filter((post) => !post.draft)
 		.slice(0, LIMIT);
+	const imageUrls =
+		'https://ik.imagekit.io/2zeqzsn1n/p-images/profile.jpg,https://ik.imagekit.io/2zeqzsn1n/p-images/profile2.webp,https://ik.imagekit.io/2zeqzsn1n/p-images/profile3.webp';
 
 	return (
 		<article className="mt-8 flex flex-col gap-12 pb-16 ">
 			<section className="flex flex-col items-start gap-8 md:flex-row-reverse md:items-center md:justify-between">
 				<div className="mx-auto md:mr-8 md:mx-0">
-					<Image
-						src="/profile.jpg"
-						alt="Roni profile photo"
-						width={350}
-						height={466}
+					<ImageSwiper
+						images={imageUrls}
 						className="h-[233px] w-[175px] rounded-lg object-cover sm:h-[300px] sm:w-[225px]"
-						priority
 					/>
 				</div>
 

@@ -4,7 +4,7 @@
 			"name": "NextJs Blog App",
 			"description": "A blog app built with NextJs, TailwindCSS, and PostgreSQL. It features user authentication, a rich text editor, and a comment system.",
 			"image": "https://ik.imagekit.io/2zeqzsn1n/spechype.webp?q-auto",
-			"tags": ["NextJS", "TailwindCSS"],
+			"tags": ["NextJS", "TailwindCSS", "SanityCMS", "NextAuth"],
 			"links": [
 				{
 					"name": "Website",
@@ -40,7 +40,7 @@
 			"name": "Smart Library Management System",
 			"description": "A web application for managing library resources, built with Php, TailwindCSS, and MySQL.",
 			"image": "https://ik.imagekit.io/2zeqzsn1n/smart-library.webp?q-auto",
-			"tags": ["MongoDB", "TailwindCSS", "ExpressJS", "Ejs", "NodeJS"],
+			"tags": ["Php", "TailwindCSS", "MySQL"],
 			"links": [
 				{
 					"name": "Website",
@@ -49,12 +49,12 @@
 				},
 				{
 					"name": "Source",
-					"href": "https://github.com/ronisarkar-official/nextjs-blog",
+					"href": "https://github.com/ronisarkar-official/Library-Management-System",
 					"icon": "github"
 				},
 				{
 					"name": "Final Year Project (SmartLibrary)",
-					"href": "https://github.com/ronisarkar-official/smart-library",
+					"href": "https://github.com/ronisarkar-official/Library-Management-System",
 					"icon": "globe"
 				}
 			]
@@ -63,16 +63,16 @@
 			"name": "Old Portfolio Website",
 			"description": "A web application for showcasing my projects and skills, built with Php, TailwindCSS, and MySQL.",
 			"image": "https://ik.imagekit.io/2zeqzsn1n/old-portfolio.webp?q-auto",
-			"tags": ["MongoDB", "TailwindCSS", "ExpressJS", "Ejs", "NodeJS"],
+			"tags": ["React", "TailwindCSS", "ThreeJs", "NodeJS"],
 			"links": [
 				{
 					"name": "Website",
-					"href": "https://www.spechype.com",
+					"href": "https://old-portfolio.spechype.com",
 					"icon": "globe"
 				},
 				{
 					"name": "Source",
-					"href": "https://github.com/ronisarkar-official/nextjs-blog",
+					"href": "https://github.com/ronisarkar-official/my-portfolio",
 					"icon": "github"
 				}
 			]
