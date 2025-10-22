@@ -3,6 +3,7 @@ import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
+import { cache } from 'react';
 
 const postsDirectory = path.join(process.cwd(), 'content/blog');
 
@@ -15,51 +16,94 @@ export interface MarkdownPost {
   coverImage?: string;
   tags?: string[];
   readingTime?: string;
+  draft?: boolean;
 }
 
-export function getPostSlugs() {
+/**
+ * Calculate reading time based on word count
+ * @param text - Text content to analyze
+ * @returns Reading time string (e.g., "5 min read")
+ */
+function calculateReadingTime(text: string): string {
+  const wordsPerMinute = 200;
+  const wordCount = text.trim().split(/\s+/).length;
+  const minutes = Math.ceil(wordCount / wordsPerMinute);
+  return `${minutes} min read`;
+}
+
+/**
+ * Get all post slugs from the blog directory
+ */
+export function getPostSlugs(): string[] {
+  if (!fs.existsSync(postsDirectory)) {
+    return [];
+  }
   return fs.readdirSync(postsDirectory).filter(file => file.endsWith('.md'));
 }
 
-export function getPostBySlug(slug: string): MarkdownPost {
+/**
+ * Get a single post by slug with full content
+ * Cached to prevent repeated file system reads
+ */
+export const getPostBySlug = cache((slug: string): MarkdownPost => {
   const realSlug = slug.replace(/\.md$/, '');
   const fullPath = path.join(postsDirectory, `${realSlug}.md`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
   
-  // Use gray-matter to parse the post metadata section
+  if (!fs.existsSync(fullPath)) {
+    throw new Error(`Post not found: ${slug}`);
+  }
+  
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
   
-  // Calculate reading time (approx. 200 words per minute)
-  const wordCount = content.split(/\s+/).length;
-  const readingTime = `${Math.ceil(wordCount / 200)} min read`;
+  const readingTime = calculateReadingTime(content);
+  const excerpt = data.excerpt || content.slice(0, 150).trim() + '...';
 
   return {
     slug: realSlug,
-    title: data.title || '',
-    date: data.date || '',
-    content: content,
-    excerpt: data.excerpt || content.slice(0, 150) + '...',
-    coverImage: data.coverImage || '',
+    title: data.title || 'Untitled',
+    date: data.date || new Date().toISOString(),
+    content,
+    excerpt,
+    coverImage: data.coverImage,
     tags: data.tags || [],
-    readingTime
+    readingTime,
+    draft: data.draft || false,
   };
-}
+});
 
-export async function getMarkdownContent(markdown: string) {
-  // Use remark to convert markdown into HTML string
+/**
+ * Convert markdown content to HTML
+ * Cached for performance
+ */
+export const getMarkdownContent = cache(async (markdown: string): Promise<string> => {
   const processedContent = await remark()
-    .use(html)
+    .use(html, { sanitize: false })
     .process(markdown);
   
   return processedContent.toString();
-}
+});
 
-export function getAllPosts(): MarkdownPost[] {
+/**
+ * Get all posts sorted by date (newest first)
+ * Filters out draft posts in production
+ * Cached to prevent repeated file system reads
+ */
+export const getAllPosts = cache((): MarkdownPost[] => {
   const slugs = getPostSlugs();
   const posts = slugs
     .map((slug) => getPostBySlug(slug))
-    // Sort posts by date in descending order
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
+    .filter((post) => {
+      // Show drafts in development, hide in production
+      if (process.env.NODE_ENV === 'production' && post.draft) {
+        return false;
+      }
+      return true;
+    })
+    .sort((a, b) => {
+      // Sort by date descending (newest first)
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
   
   return posts;
-}
+});

@@ -150,10 +150,6 @@
 	scrollbar-color: var(--scrollbar-thumb) transparent; /* Transparent track */
 }
 
-:root {
-	/* next/font/google sets these variables via the classes on <body> */
-}
-
 /* Default UI/body font */
 html,
 body {

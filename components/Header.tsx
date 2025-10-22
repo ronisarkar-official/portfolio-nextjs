@@ -2,38 +2,29 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import ThemeToggle from './ThemeToggle';
 import { Button } from './ui/Button';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
-	{
-		name: 'Home',
-		href: '/',
-	},
-	{
-		name: 'Projects',
-		href: '/projects',
-	},
-	{
-		name: 'Blogs',
-		href: '/blog',
-	},
-	{
-		name: 'Contact',
-		href: '/contact',
-	},
-];
+	{ name: 'Home', href: '/' },
+	{ name: 'Projects', href: '/projects' },
+	{ name: 'Blogs', href: '/blog' },
+	{ name: 'Contact', href: '/contact' },
+] as const;
 
 export default function Header() {
 	const pathname = usePathname();
 	const [open, setOpen] = useState(false);
 
-	const isActive = (href: string) => {
+	const isActive = useCallback((href: string) => {
 		if (href === '/') return pathname === '/';
 		return pathname?.startsWith(href);
-	};
+	}, [pathname]);
+
+	const toggleMenu = useCallback(() => setOpen(prev => !prev), []);
+	const closeMenu = useCallback(() => setOpen(false), []);
 
 	return (
 		<header className="sticky top-0 z-50 bg-background/75 backdrop-blur-sm">
@@ -76,7 +67,7 @@ export default function Header() {
 							aria-label={open ? 'Close menu' : 'Open menu'}
 							aria-expanded={open}
 							aria-controls="mobile-nav"
-							onClick={() => setOpen((v) => !v)}>
+							onClick={toggleMenu}>
 							{open ? <X className="size-5" /> : <Menu className="size-5" />}
 						</Button>
 					</div>
@@ -104,7 +95,7 @@ export default function Header() {
 													? 'block rounded-md bg-accent/60 px-3 py-2 text-foreground'
 													: 'block rounded-md px-3 py-2 text-muted-foreground hover:bg-accent hover:text-foreground'
 											}
-											onClick={() => setOpen(false)}>
+											onClick={closeMenu}>
 											{nav.name}
 										</Link>
 									</li>

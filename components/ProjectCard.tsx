@@ -26,9 +26,11 @@ export function ProjectCard({ project }: Props) {
 					<div className="relative w-full max-w-[500px] aspect-[5/3] border rounded-xl overflow-hidden">
 						<Image
 							src={image}
-							alt={name}
+							alt={`${name} project screenshot`}
 							fill
-							className="object-top"
+							sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 500px"
+							className=" object-top"
+							loading="lazy"
 						/>
 					</div>
 				)}

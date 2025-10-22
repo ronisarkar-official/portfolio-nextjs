@@ -14,17 +14,23 @@ import Projects from '@/components/Projects';
 import LinkWithIcon from '@/components/LinkWithIcon';
 import About from '@/components/About';
 import Experience from '@/components/Experience';
-import { getPosts } from '../lib/posts';
+import { getAllPosts } from '@/lib/markdown';
 import BlogCard from '@/components/BlogCard';
 import { ImageSwiper } from '@/components/image-swiper';
+import { Metadata } from 'next';
 
-// const BIRTH_YEAR = 2004;
 const LIMIT = 2; // max show 2
 
+// Revalidate every hour
+export const revalidate = 3600;
+
+export const metadata: Metadata = {
+	title: 'Home',
+	description: 'Roni Sarkar - Full-Stack Developer specializing in Next.js, React, and modern web technologies. View my portfolio, projects, and blog posts.',
+};
+
 export default async function Home() {
-	const posts = (await getPosts())
-		.filter((post) => !post.draft)
-		.slice(0, LIMIT);
+	const posts = getAllPosts().slice(0, LIMIT);
 	const imageUrls =
 		'https://ik.imagekit.io/2zeqzsn1n/p-images/profile.jpg,https://ik.imagekit.io/2zeqzsn1n/p-images/profile2.webp,https://ik.imagekit.io/2zeqzsn1n/p-images/profile3.webp';
 

@@ -1,12 +1,17 @@
 import BlogCard from '@/components/BlogCard';
 import { getAllPosts } from '@/lib/markdown';
+import { Metadata } from 'next';
 
+export const metadata: Metadata = {
+	title: 'Blog',
+	description: 'Read articles about web development, software engineering, and technology insights.',
+};
 
-// Revalidate every 60 seconds to get fresh posts
-export const revalidate = 60;
+// Revalidate every hour for fresh content
+export const revalidate = 3600;
 
 export default async function BlogPage() {
-	const posts = await getAllPosts();
+	const posts = getAllPosts();
 
 	return (
 		<article className="mt-8 flex flex-col gap-8 pb-16">

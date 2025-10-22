@@ -15,8 +15,8 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 
-// Revalidate every 60 seconds to get fresh posts
-export const revalidate = 60;
+// Revalidate every hour for fresh content
+export const revalidate = 3600;
 
 // Helper function to format dates
 const formatDate = (dateString: string) => {
@@ -77,18 +77,11 @@ export default async function BlogPostPage({
 	const {
 		title,
 		coverImage,
-		publishedAt,
-		updatedAt,
+		date,
 		tags,
 		readingTime,	
 		draft,
 	} = post;
-
-	const shouldShowUpdated =
-		updatedAt &&
-		updatedAt !== publishedAt &&
-		new Date(updatedAt).getTime() >
-			new Date(publishedAt || updatedAt).getTime();
 
 	return (
 		<div className="min-h-screen bg-background">
@@ -152,7 +145,7 @@ export default async function BlogPostPage({
 
 						{/* Metadata section */}
 						<div className="flex flex-col gap-4 pt-2">
-							{/* Reading time, Published, Updated */}
+							{/* Reading time & Published date */}
 							<div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
 								{/* Reading time */}
 								<div className="flex items-center gap-1.5">
@@ -168,22 +161,8 @@ export default async function BlogPostPage({
 								{/* Published date */}
 								<div className="flex items-center gap-1.5">
 									<CalendarIcon className="h-4 w-4" />
-									<span>Published {formatDate(publishedAt ?? '')}</span>
+									<span>Published {formatDate(date)}</span>
 								</div>
-
-								{/* Updated date */}
-								{shouldShowUpdated && updatedAt && (
-									<>
-										<Separator
-											orientation="vertical"
-											className="hidden h-4 sm:block"
-										/>
-										<div className="flex items-center gap-1.5">
-											<Edit3Icon className="h-4 w-4" />
-											<span>Updated {formatDate(updatedAt)}</span>
-										</div>
-									</>
-								)}
 							</div>
 
 							{/* Tags row */}
@@ -223,31 +202,12 @@ export default async function BlogPostPage({
 										</p>
 									)}
 
-									{/* Publication dates */}
-									<div className="flex flex-col gap-1">
-										{shouldShowUpdated && updatedAt ? (
-											<>
-												<div className="flex items-center gap-1.5">
-													<CalendarIcon className="h-3.5 w-3.5" />
-													<span className="font-medium">
-														Published {formatDate(publishedAt ?? '')}
-													</span>
-												</div>
-												<div className="flex items-center gap-1.5">
-													<Edit3Icon className="h-3.5 w-3.5" />
-													<span className="font-medium">
-														Updated {formatDate(updatedAt)}
-													</span>
-												</div>
-											</>
-										) : (
-											<div className="flex items-center gap-1.5">
-												<CalendarIcon className="h-3.5 w-3.5" />
-												<span className="font-medium">
-													Published {formatDate(publishedAt ?? '')}
-												</span>
-											</div>
-										)}
+									{/* Publication date */}
+									<div className="flex items-center gap-1.5">
+										<CalendarIcon className="h-3.5 w-3.5" />
+										<span className="font-medium">
+											Published {formatDate(date)}
+										</span>
 									</div>
 								</div>
 

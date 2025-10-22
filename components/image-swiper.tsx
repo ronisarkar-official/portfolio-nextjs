@@ -1,5 +1,6 @@
 'use client';
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, memo } from 'react';
+import Image from 'next/image';
 
 interface ImageSwiperProps {
 	images: string;
@@ -8,7 +9,7 @@ interface ImageSwiperProps {
 	className?: string;
 }
 
-export const ImageSwiper: React.FC<ImageSwiperProps> = ({
+export const ImageSwiper: React.FC<ImageSwiperProps> = memo(({
 	images,
 	cardWidth = 225, // 16rem = 256px
 	cardHeight = 300, // 22rem = 352px
@@ -228,14 +229,19 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = ({
                        rotateY(var(--swipe-rotate, 0deg))`,
 						} as React.CSSProperties
 					}>
-					<img
+					<Image
 						src={imageList[originalIndex]}
-						alt={`Swiper image ${originalIndex + 1}`}
-						className="w-full h-full object-cover select-none pointer-events-none"
+						alt={`Profile image ${originalIndex + 1}`}
+						fill
+						sizes="225px"
+						className="object-cover select-none pointer-events-none"
 						draggable={false}
+						priority={originalIndex === 0}
 					/>
 				</article>
 			))}
 		</section>
 	);
-};
+});
+
+ImageSwiper.displayName = 'ImageSwiper';

@@ -1,36 +1,142 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Roni Sarkar - Portfolio
 
-## Getting Started
+A modern, performant portfolio website built with Next.js 15, React 19, and TypeScript. Features optimized images, server-side rendering, and comprehensive SEO.
 
-First, run the development server:
+## ✨ Features
+
+- **Modern Stack**: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS v4
+- **Optimized Performance**: Image optimization, caching strategies, React Server Components
+- **Blog System**: Markdown-based blog with syntax highlighting
+- **Dark Mode**: System-aware theme with manual toggle
+- **SEO Optimized**: Comprehensive metadata, JSON-LD schema, sitemap generation
+- **Responsive Design**: Mobile-first approach with smooth animations
+- **Contact Form**: EmailJS integration for direct messaging
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 20+ installed
+- npm, yarn, pnpm, or bun package manager
+
+### Installation
 
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the portfolio.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env.local` file with:
 
-## Learn More
+```env
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
+NEXT_PUBLIC_CONTACT_TO_EMAIL=your_email
+NEXT_PUBLIC_CONTACT_TO_NAME=Your Name
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+portfolio-main-nextjs/
+├── app/                    # Next.js app directory
+│   ├── blog/              # Blog pages
+│   ├── contact/           # Contact form
+│   ├── projects/          # Projects showcase
+│   └── page.tsx           # Home page
+├── components/            # React components
+│   ├── ui/               # shadcn/ui components
+│   └── ...               # Custom components
+├── content/              # Markdown blog posts
+│   └── blog/            
+├── data/                 # JSON data files
+│   ├── projects.json    # Projects data
+│   ├── career.json      # Work experience
+│   └── socials.json     # Social links
+├── lib/                  # Utility functions
+│   ├── markdown.ts      # Blog post processing
+│   ├── schemas.ts       # Zod validation schemas
+│   └── utils.ts         # Helper functions
+└── public/              # Static assets
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
 
-## Deploy on Vercel
+## 🛠️ Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4, Framer Motion
+- **UI Components**: shadcn/ui, Radix UI
+- **Content**: Markdown with gray-matter, remark
+- **Code Highlighting**: Shiki
+- **Form Handling**: EmailJS
+- **Analytics**: Vercel Analytics
+- **Icons**: Lucide React
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📈 Optimizations (Oct 2025)
+
+Recent comprehensive optimization pass included:
+- ✅ Removed dangerous build configuration flags
+- ✅ Implemented Next.js Image optimization across all components
+- ✅ Added React cache() wrappers for data fetching
+- ✅ Implemented ISR with hourly revalidation
+- ✅ Enhanced SEO with dynamic metadata
+- ✅ Optimized React components with useCallback and memo
+- ✅ Fixed TypeScript errors and improved type safety
+
+See [OPTIMIZATION_REPORT.md](./OPTIMIZATION_REPORT.md) for detailed changes.
+
+## 📝 Adding Blog Posts
+
+Create a new `.md` file in `content/blog/`:
+
+```markdown
+---
+title: "Your Post Title"
+date: "2025-01-01"
+excerpt: "Brief description"
+coverImage: "https://example.com/image.jpg"
+tags: ["nextjs", "react"]
+draft: false
+---
+
+Your content here...
+```
+
+## 🚢 Deployment
+
+### Vercel (Recommended)
+1. Push code to GitHub
+2. Import project in Vercel
+3. Add environment variables
+4. Deploy
+
+### Other Platforms
+```bash
+# Build for production
+npm run build
+
+# Start production server
+npm start
+```
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🔗 Links
+
+- **Live Site**: [ronisarkar.spechype.com](https://ronisarkar.spechype.com)
+- **GitHub**: [@ronisarkar-official](https://github.com/ronisarkar-official)
+- **LinkedIn**: [Roni Sarkar](https://www.linkedin.com/in/ronisarkar)
+
+---
+
+Built with ❤️ by [Roni Sarkar](https://ronisarkar.spechype.com)
