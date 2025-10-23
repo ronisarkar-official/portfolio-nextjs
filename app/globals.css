@@ -193,3 +193,38 @@ code {
 		@apply bg-background text-foreground;
 	}
 }
+
+/* View Transitions API support for browsers that support it */
+@supports (view-transition-name: none) {
+	::view-transition-old(root),
+	::view-transition-new(root) {
+		animation-duration: 0.4s;
+		animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+	}
+	
+	::view-transition-old(root) {
+		animation-name: fade-out;
+	}
+	
+	::view-transition-new(root) {
+		animation-name: fade-in;
+	}
+}
+
+@keyframes fade-out {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}

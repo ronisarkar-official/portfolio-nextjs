@@ -35,7 +35,7 @@ export default async function Home() {
 		'https://ik.imagekit.io/2zeqzsn1n/p-images/profile.jpg,https://ik.imagekit.io/2zeqzsn1n/p-images/profile2.webp,https://ik.imagekit.io/2zeqzsn1n/p-images/profile3.webp';
 
 	return (
-		<article className="mt-8 flex flex-col gap-12 pb-16 ">
+		<article className="mt-8 flex flex-col gap-6 pb-16 ">
 			<section className="flex flex-col items-start gap-8 md:flex-row-reverse md:items-center md:justify-between">
 				<div className="mx-auto md:mr-8 md:mx-0">
 					<ImageSwiper
@@ -129,7 +129,7 @@ export default async function Home() {
 				</div>
 			</section>
 
-			<About />
+			
 
 			<section className="flex flex-col gap-8">
 				<div className="flex justify-between">
@@ -145,6 +145,7 @@ export default async function Home() {
 				</div>
 				<Projects limit={LIMIT} />
 			</section>
+			<About />
 			<Experience />
 			<section className="flex flex-col gap-8">
 				<div className="flex justify-between">
