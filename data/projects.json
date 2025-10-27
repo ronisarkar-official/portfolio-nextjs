@@ -26,12 +26,12 @@
 			"links": [
 				{
 					"name": "Website",
-					"href": "https://www.spechype.com",
+					"href": "https://pixivo.spechype.com",
 					"icon": "globe"
 				},
 				{
 					"name": "Source",
-					"href": "https://github.com/ronisarkar-official/nextjs-blog",
+					"href": "https://github.com/ronisarkar-official/pixivo",
 					"icon": "github"
 				}
 			]
@@ -54,7 +54,7 @@
 				},
 				{
 					"name": "Final Year Project (SmartLibrary)",
-					"href": "https://github.com/ronisarkar-official/Library-Management-System",
+					"href": "https://mcet.free.nf/?i=1",
 					"icon": "globe"
 				}
 			]

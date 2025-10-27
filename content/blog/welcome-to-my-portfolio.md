@@ -1,7 +1,7 @@
 ---
 title: 'Welcome to My Portfolio'
 date: '2025-10-20'
-coverImage: "https://ik.imagekit.io/2zeqzsn1n/ronisarkar.webp?updatedAt=1760951107055"
+coverImage: "https://ik.imagekit.io/2zeqzsn1n/portfolio-image1.webp?updatedAt=1761548870747"
 description: 'A warm welcome to my personal portfolio and blog where I share my journey, projects, and insights in software development.'
 ---
 

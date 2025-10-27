@@ -22,9 +22,8 @@ const nextConfig: NextConfig = {
 		formats: ['image/avif', 'image/webp'],
 	},
 	// Enable React compiler for better performance
-	experimental: {
-		reactCompiler: true,
-	},
+	// The experimental 'reactCompiler' option is not recognized by this Next.js version,
+	// so it was removed to satisfy the config's type definitions.
 	// Optimize production builds
 	compress: true,
 	poweredByHeader: false,

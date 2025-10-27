@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 export default async function Home() {
 	const posts = getAllPosts().slice(0, LIMIT);
 	const imageUrls =
-		'https://ik.imagekit.io/2zeqzsn1n/p-images/profile.jpg,https://ik.imagekit.io/2zeqzsn1n/p-images/profile2.webp,https://ik.imagekit.io/2zeqzsn1n/p-images/profile3.webp';
+		'https://ik.imagekit.io/2zeqzsn1n/p-images/hero.webp?,https://ik.imagekit.io/2zeqzsn1n/p-images/profile3.webp';
 
 	return (
 		<article className="mt-8 flex flex-col gap-6 pb-16 ">

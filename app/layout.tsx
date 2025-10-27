@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 		siteName: 'ronisarkar',
 		images: [
 			{
-				url: 'https://ik.imagekit.io/2zeqzsn1n/ronisarkar.webp?updatedAt=1760951107055',
+				url: 'https://ik.imagekit.io/2zeqzsn1n/portfolio-image1.webp?',
 				width: 1200,
 				height: 630,
 				alt: 'Roni Sarkar — Software Engineer & Web Developer',
