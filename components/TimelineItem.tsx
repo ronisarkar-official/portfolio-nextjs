@@ -57,7 +57,8 @@ export default function TimelineItem({ experience }: Props) {
 							<Badge
 								key={idx}
 								title={link.name}
-								className="flex gap-2">
+								className="flex gap-2"
+								variant="outline">
 								<Icon
 									name={link.icon}
 									aria-hidden="true"

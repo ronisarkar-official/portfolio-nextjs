@@ -7,6 +7,7 @@ import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/components/theme-provider';
 import BackToTop from '@/components/BackToTop';
 import { Analytics } from '@vercel/analytics/react';
+import EasterEgg from '@/components/EasterEgg';
 
 const jetbrainsMono = JetBrains_Mono({
 	variable: '--font-jetbrains-mono',
@@ -173,6 +174,7 @@ export default function RootLayout({
 					defaultTheme="system"
 					enableSystem
 					disableTransitionOnChange>
+					<EasterEgg />
 					<Header />
 					<BackToTop />
 

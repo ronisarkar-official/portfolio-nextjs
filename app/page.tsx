@@ -98,10 +98,10 @@ export default async function Home() {
 							<p className="text-balance">
 								<a
 									className="underline-offset-4 hover:underline"
-									href="https://roni-sarkar.vercel.app"
+									href="https://ronisarkar.spechype.com"
 									target="_blank"
 									rel="noopener noreferrer">
-									roni-sarkar.vercel.app
+									ronisarkar.spechype.com
 								</a>
 							</p>
 						</div>
@@ -129,8 +129,6 @@ export default async function Home() {
 				</div>
 			</section>
 
-			
-
 			<section className="flex flex-col gap-8">
 				<div className="flex justify-between">
 					<h2 className="title text-2xl font-semibold text-foreground sm:text-3xl">
@@ -146,6 +144,7 @@ export default async function Home() {
 				<Projects limit={LIMIT} />
 			</section>
 			<About />
+
 			<Experience />
 			<section className="flex flex-col gap-8">
 				<div className="flex justify-between">

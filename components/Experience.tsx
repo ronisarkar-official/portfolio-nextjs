@@ -21,7 +21,8 @@ export default function Experience() {
 
 			<Tabs
 				defaultValue="work"
-				className="w-full">
+				className="w-full"
+				suppressHydrationWarning>
 				<TabsList className="grid w-full grid-cols-2 mb-2">
 					<TabsTrigger
 						value="work"

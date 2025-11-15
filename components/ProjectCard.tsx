@@ -23,7 +23,7 @@ export function ProjectCard({ project }: Props) {
 		<Card className="flex flex-col">
 			<CardHeader>
 				{image && (
-					<div className="relative w-full max-w-[500px] aspect-[5/3] border rounded-xl overflow-hidden">
+					<div className="relative w-full max-w-[500px] aspect-[5/3] border border-border dark:border-gray-700 dark:bg-gray-800/50 rounded-xl overflow-hidden">
 						<Image
 							src={image}
 							alt={`${name} project screenshot`}
@@ -71,7 +71,8 @@ export function ProjectCard({ project }: Props) {
 								target="_blank">
 								<Badge
 									key={idx}
-									className="flex gap-2 px-2 py-1 text-[10px]">
+									className="flex gap-2 px-2 py-1 text-[10px]"
+									variant="outline">
 									<Icon
 										name={link.icon}
 										className="size-3"

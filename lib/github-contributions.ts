@@ -1,8 +1,14 @@
-import type { Activity } from '@/components/contribution-graph';
+export interface Activity {
+	date: string;
+	count: number;
+	level: 0 | 1 | 2 | 3 | 4;
+}
 
 type GitHubContributionsResponse = {
+	total: { [year: string]: number };
 	contributions: Activity[];
 };
+
 const GITHUB_USERNAME = "ronisarkar-official";
 
 export async function getGitHubContributions() {

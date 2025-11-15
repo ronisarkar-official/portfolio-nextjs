@@ -56,6 +56,19 @@ export async function generateMetadata({
 			title: post.title,
 			description: post.excerpt,
 			images: post.coverImage ? [{ url: post.coverImage }] : [],
+			type: 'article',
+			publishedTime: post.date,
+			authors: ['Roni Sarkar'],
+			tags: post.tags,
+		},
+		twitter: {
+			card: 'summary_large_image',
+			title: post.title,
+			description: post.excerpt,
+			creator: '@ronisarkarDev',
+		},
+		alternates: {
+			canonical: `https://ronisarkar.spechype.com/blog/${slug}`,
 		},
 	};
 }
@@ -83,8 +96,43 @@ export default async function BlogPostPage({
 		draft,
 	} = post;
 
+	// JSON-LD for Article
+	const articleJsonLd = {
+		'@context': 'https://schema.org',
+		'@type': 'Article',
+		headline: title,
+		image: coverImage ? [coverImage] : [],
+		datePublished: date,
+		dateModified: date,
+		author: {
+			'@type': 'Person',
+			name: 'Roni Sarkar',
+			url: 'https://ronisarkar.spechype.com',
+		},
+		publisher: {
+			'@type': 'Organization',
+			name: 'Roni Sarkar',
+			logo: {
+				'@type': 'ImageObject',
+				url: 'https://ronisarkar.spechype.com/favicon.ico',
+			},
+		},
+		description: post.excerpt,
+		keywords: tags?.join(', '),
+		mainEntityOfPage: {
+			'@type': 'WebPage',
+			'@id': `https://ronisarkar.spechype.com/blog/${slug}`,
+		},
+	};
+
 	return (
 		<div className="min-h-screen bg-background">
+			{/* JSON-LD for Article */}
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+			/>
+
 			{/* Navigation */}
 			<nav className="mb-12">
 				<Breadcrumb>
