@@ -81,12 +81,17 @@ export default function ContributionGraph({
 				date: normalizeDateString(item.date),
 			});
 
-		// compute start timestamp aligned to Sunday, covering WEEKS * 7 days
-		const end = new Date();
-		const endTs = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate());
-		let startTs = endTs - (WEEKS * 7 - 1) * MS_PER_DAY;
-		const startDay = new Date(startTs).getUTCDay();
-		startTs -= startDay * MS_PER_DAY;
+		// compute start timestamp aligned to Sunday, ensuring the last column
+		// always covers the current week (even if the week is incomplete)
+		const today = new Date();
+		const todayTs = Date.UTC(
+			today.getFullYear(),
+			today.getMonth(),
+			today.getDate(),
+		);
+		const endDay = new Date(todayTs).getUTCDay();
+		const endTs = todayTs + (6 - endDay) * MS_PER_DAY;
+		const startTs = endTs - (WEEKS * 7 - 1) * MS_PER_DAY;
 
 		const weeks: Activity[][] = Array.from(
 			{ length: WEEKS },
@@ -107,7 +112,7 @@ export default function ContributionGraph({
 			const d = new Date(ts);
 			const dayOfMonth = d.getUTCDate();
 			const month = d.getUTCMonth();
-			if (dayOfMonth === 1 && !shown.has(month)) {
+			if (ts <= todayTs && dayOfMonth === 1 && !shown.has(month)) {
 				monthLabels[wk] = MONTHS[month];
 				shown.add(month);
 			}
