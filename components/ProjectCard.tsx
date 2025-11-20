@@ -1,11 +1,11 @@
 import { Badge } from '@/components/ui/Badge';
 import {
-	Card,
 	CardContent,
 	CardFooter,
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/Card';
+import { SpotlightCard } from '@/components/ui/SpotlightCard';
 import { Project } from '@/lib/schemas';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -20,7 +20,7 @@ export function ProjectCard({ project }: Props) {
 	const { name, description, image, tags, links } = project;
 
 	return (
-		<Card className="flex flex-col">
+		<SpotlightCard className="flex flex-col">
 			<CardHeader>
 				{image && (
 					<div className="relative w-full max-w-[500px] aspect-[5/3] border border-border dark:border-gray-700 dark:bg-gray-800/50 rounded-xl overflow-hidden">
@@ -84,6 +84,6 @@ export function ProjectCard({ project }: Props) {
 					</div>
 				)}
 			</CardFooter>
-		</Card>
+		</SpotlightCard>
 	);
 }

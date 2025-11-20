@@ -186,6 +186,19 @@ export default function ContributionGraph({
 }
 `}</style>
 
+			{/* Header with Total Contributions */}
+			<div className="flex items-center justify-between mb-4 px-6 md:px-0">
+				<div className="flex flex-col">
+					<span className="text-3xl font-semibold text-foreground">
+						GitHub Activity
+					</span>
+					<span className="text-md text-muted-foreground">
+						Total: {data?.reduce((acc, curr) => acc + curr.count, 0) ?? 0}{' '}
+						contributions
+					</span>
+				</div>
+			</div>
+
 			{/* month labels row */}
 			<div
 				className="flex mb-1 text-xs text-muted-foreground flex-row ml-6 md:ml-6"

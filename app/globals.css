@@ -47,6 +47,8 @@
 	--radius: 0.625rem;
 	--background: oklch(1 0 0);
 	--foreground: oklch(0.145 0 0);
+	--selection-bg: oklch(0.9 0.05 250);
+	--selection-fg: oklch(0.145 0 0);
 	--card: oklch(1 0 0);
 	--card-foreground: oklch(0.145 0 0);
 	--popover: oklch(1 0 0);
@@ -81,6 +83,8 @@
 .dark {
 	--background: oklch(0 0 0);
 	--foreground: oklch(0.985 0 0);
+	--selection-bg: oklch(0.35 0.05 250);
+	--selection-fg: oklch(0.985 0 0);
 	--card: oklch(0 0 0);
 	--card-foreground: oklch(0.985 0 0);
 	--popover: oklch(0.205 0 0);
@@ -134,15 +138,15 @@
 	background: var(--scrollbar-thumb);
 	border-radius: var(--scrollbar-radius);
 	box-shadow: inset 0 0 6px var(--scrollbar-shadow);
-	transition:
-		background 0.2s ease,
-		transform 0.08s ease;
+	transition: background 0.2s ease, transform 0.08s ease;
 }
 
 *::-webkit-scrollbar-thumb:hover {
 	background: var(--scrollbar-thumb-hover);
 	transform: translateY(1px);
 }
+
+
 
 /* Firefox */
 * {
@@ -153,9 +157,8 @@
 /* Default UI/body font */
 html,
 body {
-	font-family:
-		var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
-		'Roboto Mono', monospace;
+	font-family: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo,
+		Monaco, 'Roboto Mono', monospace;
 }
 
 /* Mono usage for code, pre, kbd, etc. */
@@ -164,14 +167,11 @@ pre,
 kbd,
 samp,
 .mono {
-	font-family:
-		var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco,
-		'Roboto Mono', monospace;
+	font-family: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo,
+		Monaco, 'Roboto Mono', monospace;
 	font-variant-ligatures: contextual;
 	/* optional: improve code rendering */
-	font-feature-settings:
-		'liga' 0,
-		'calt' 0;
+	font-feature-settings: 'liga' 0, 'calt' 0;
 }
 
 /* Example small styling */
@@ -201,11 +201,11 @@ code {
 		animation-duration: 0.4s;
 		animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 	}
-	
+
 	::view-transition-old(root) {
 		animation-name: fade-out;
 	}
-	
+
 	::view-transition-new(root) {
 		animation-name: fade-in;
 	}

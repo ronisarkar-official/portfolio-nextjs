@@ -3,7 +3,7 @@
 		{
 			"name": "NextJs Blog App",
 			"description": "A blog app built with NextJs, TailwindCSS, and PostgreSQL. It features user authentication, a rich text editor, and a comment system.",
-			"image": "https://ik.imagekit.io/2zeqzsn1n/spechype.webp?q-auto",
+			"image": "https://ik.imagekit.io/2zeqzsn1n/nextjs-blog-project.webp?q-auto",
 			"tags": ["NextJS", "TailwindCSS", "SanityCMS", "NextAuth"],
 			"links": [
 				{
@@ -21,7 +21,7 @@
 		{
 			"name": "Pixivo - a image sharing platform",
 			"description": "A platform for sharing and discovering artwork, built with NextJs, TailwindCSS, and PostgreSQL.",
-			"image": "https://ik.imagekit.io/2zeqzsn1n/pixivo.webp?q-auto",
+			"image": "https://ik.imagekit.io/2zeqzsn1n/pixivo-project.webp?q-auto",
 			"tags": ["MongoDB", "TailwindCSS", "ExpressJS", "Ejs", "NodeJS"],
 			"links": [
 				{
@@ -39,7 +39,7 @@
 		{
 			"name": "Smart Library Management System",
 			"description": "A web application for managing library resources, built with Php, TailwindCSS, and MySQL.",
-			"image": "https://ik.imagekit.io/2zeqzsn1n/smart-library.webp?q-auto",
+			"image": "https://ik.imagekit.io/2zeqzsn1n/smart-lib-project.webp?q-auto",
 			"tags": ["Php", "TailwindCSS", "MySQL"],
 			"links": [
 				{
@@ -62,7 +62,7 @@
 		{
 			"name": "Old Portfolio Website",
 			"description": "A web application for showcasing my projects and skills, built with Php, TailwindCSS, and MySQL.",
-			"image": "https://ik.imagekit.io/2zeqzsn1n/old-portfolio.webp?q-auto",
+			"image": "https://ik.imagekit.io/2zeqzsn1n/old-portfolio-project.webp?q-auto",
 			"tags": ["React", "TailwindCSS", "ThreeJs", "NodeJS"],
 			"links": [
 				{

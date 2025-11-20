@@ -8,6 +8,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import BackToTop from '@/components/BackToTop';
 import { Analytics } from '@vercel/analytics/react';
 import EasterEgg from '@/components/EasterEgg';
+import CommandMenu from '@/components/CommandMenu';
 
 const jetbrainsMono = JetBrains_Mono({
 	variable: '--font-jetbrains-mono',
@@ -22,7 +23,7 @@ const BASE_URL = 'https://ronisarkar.spechype.com';
 export const metadata: Metadata = {
 	title: {
 		default: 'Roni Sarkar — Software Engineer & Web Developer',
-		template: '%s | Roni Sarkar',
+		template: '%s',
 	},
 	description:
 		'Roni Sarkar — Software engineer and web developer building modern web apps with Next.js, React and Node.js. Portfolio, case studies and contact.',
@@ -75,7 +76,6 @@ export const metadata: Metadata = {
 	},
 	icons: {
 		icon: '/favicon.ico',
-		shortcut: '/favicon-32x32.png',
 		apple: '/apple-touch-icon.png',
 	},
 };
@@ -161,20 +161,16 @@ export default function RootLayout({
 							: metadata.keywords ?? ''
 					}
 				/>
-
-				{/* Optional webmanifest */}
-				<link
-					rel="manifest"
-					href="/site.webmanifest"
-				/>
 			</head>
-			<body className={`${jetbrainsMono.variable} antialiased`}>
+			<body
+				className={`${jetbrainsMono.variable} antialiased overflow-x-hidden selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black`}>
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="system"
 					enableSystem
 					disableTransitionOnChange>
 					<EasterEgg />
+					<CommandMenu />
 					<Header />
 					<BackToTop />
 

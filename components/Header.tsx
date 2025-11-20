@@ -5,7 +5,16 @@ import { usePathname } from 'next/navigation';
 import { useState, useMemo, useCallback } from 'react';
 import ThemeToggle from './ThemeToggle';
 import { Button } from './ui/Button';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Search } from 'lucide-react';
+import { GitHubStarsButton } from './animate-ui/components/buttons/github-stars';
+import { Separator } from './ui/Separator';
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from './ui/tooltip';
+import { Kbd } from './ui/kbd';
 
 const navLinks = [
 	{ name: 'Home', href: '/' },
@@ -18,12 +27,15 @@ export default function Header() {
 	const pathname = usePathname();
 	const [open, setOpen] = useState(false);
 
-	const isActive = useCallback((href: string) => {
-		if (href === '/') return pathname === '/';
-		return pathname?.startsWith(href);
-	}, [pathname]);
+	const isActive = useCallback(
+		(href: string) => {
+			if (href === '/') return pathname === '/';
+			return pathname?.startsWith(href);
+		},
+		[pathname],
+	);
 
-	const toggleMenu = useCallback(() => setOpen(prev => !prev), []);
+	const toggleMenu = useCallback(() => setOpen((prev) => !prev), []);
 	const closeMenu = useCallback(() => setOpen(false), []);
 
 	return (
@@ -56,8 +68,33 @@ export default function Header() {
 						))}
 					</ul>
 
-					{/* Right controls */}
 					<div className="flex items-center gap-2 sm:gap-3">
+						<Button
+							variant="outline"
+							className="hidden sm:flex items-center gap-2 px-3 h-9 text-muted-foreground hover:text-foreground hover:bg-accent/50"
+							onClick={() =>
+								document.dispatchEvent(new CustomEvent('toggle-command-menu'))
+							}
+							aria-label="Open command menu">
+							<Search className="size-4" />
+							<span className="text-xs">Search..</span>
+							<Kbd>⌘</Kbd>
+							<Kbd>K</Kbd>
+						</Button>
+						<GitHubStarsButton
+							username="ronisarkar-official"
+							repo="portfolio-nextjs"
+							variant="outline"
+							size="sm"
+							href="https://github.com/ronisarkar-official/portfolio-nextjs"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50 dark:hover:text-accent-foreground"
+						/>
+						<Separator
+							orientation="vertical"
+							className="h-4"
+						/>
 						<ThemeToggle />
 						{/* Mobile menu button */}
 						<Button

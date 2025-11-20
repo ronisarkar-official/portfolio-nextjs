@@ -1,9 +1,11 @@
 'use client';
 
-import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
 import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from './ui/Button';
+import { Moon } from './animate-ui/icons/moon';
+import { Sun } from './animate-ui/icons/sun';
+import { AnimateIcon } from './animate-ui/icons/icon';
 
 export default function ThemeToggle() {
 	const { setTheme, resolvedTheme } = useTheme();
@@ -136,9 +138,15 @@ export default function ThemeToggle() {
 			size="icon"
 			variant="ghost"
 			onClick={handleThemeToggle}>
-			{resolvedTheme === 'dark' ?
-				<SunIcon className="size-4 text-gray-50" />
-			:	<MoonIcon className="size-4 text-black" />}
+			{resolvedTheme === 'dark' ? (
+				<AnimateIcon animateOnHover>
+					<Sun />
+				</AnimateIcon>
+			) : (
+				<AnimateIcon animateOnHover>
+					<Moon />
+				</AnimateIcon>
+			)}
 			<span className="sr-only">Theme Toggle</span>
 		</Button>
 	);

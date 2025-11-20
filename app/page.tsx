@@ -1,7 +1,12 @@
 import Socials from '@/components/Socials';
+import AvailabilityBadge from '@/components/AvailabilityBadge';
+import TextFlip from '@/components/TextFlip';
+import LocalTime from '@/components/LocalTime';
+import TechStack from '@/components/TechStack';
 import { Button } from '@/components/ui/Button';
 import {
 	ArrowRightIcon,
+	Clock,
 	CodeXml,
 	FileDown,
 	Globe,
@@ -18,6 +23,9 @@ import { getAllPosts } from '@/lib/markdown';
 import BlogCard from '@/components/BlogCard';
 import { ImageSwiper } from '@/components/image-swiper';
 import { Metadata } from 'next';
+import NowPlaying from '@/components/NowPlaying';
+import ContributionGraph from '@/components/contribution-graph';
+import { QuoteBlock } from '@/components/QuoteBlock';
 
 const LIMIT = 2; // max show 2
 
@@ -26,7 +34,8 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
 	title: 'Home',
-	description: 'Roni Sarkar - Full-Stack Developer specializing in Next.js, React, and modern web technologies. View my portfolio, projects, and blog posts.',
+	description:
+		'Roni Sarkar - Full-Stack Developer specializing in Next.js, React, and modern web technologies. View my portfolio, projects, and blog posts.',
 };
 
 export default async function Home() {
@@ -37,7 +46,7 @@ export default async function Home() {
 	return (
 		<article className="mt-8 flex flex-col gap-6 pb-16 ">
 			<section className="flex flex-col items-start gap-8 md:flex-row-reverse md:items-center md:justify-between">
-				<div className="mx-auto md:mr-8 md:mx-0">
+				<div className="mx-auto md:mr-0 md:mx-0">
 					<ImageSwiper
 						images={imageUrls}
 						className="h-[233px] w-[175px] rounded-lg object-cover sm:h-[300px] sm:w-[225px]"
@@ -45,6 +54,7 @@ export default async function Home() {
 				</div>
 
 				<div className="flex max-w-[320px] flex-col sm:max-w-full">
+					<AvailabilityBadge className="mb-4 w-fit" />
 					<h1 className="title text-balance text-4xl sm:text-5xl">
 						Hey,I&apos;m{' '}
 						<span className="bg-gradient-to-r from-primary to-foreground bg-clip-text text-transparent">
@@ -62,7 +72,14 @@ export default async function Home() {
 								aria-hidden="true">
 								<CodeXml />
 							</div>
-							<p className="text-balance">Full-Stack Developer</p>
+							<TextFlip
+								words={[
+									'Full-Stack Developer',
+									'UI/UX Enthusiast',
+									'Open Source Contributor',
+								]}
+								className="text-balance"
+							/>
 						</div>
 
 						<div className="flex items-center gap-4 font-mono text-sm">
@@ -72,6 +89,17 @@ export default async function Home() {
 								<MapPin />
 							</div>
 							<p className="text-balance">West Bengal,India</p>
+						</div>
+
+						<div className="flex items-center gap-4 font-mono text-sm">
+							<div
+								className="flex size-6 shrink-0 items-center justify-center rounded-lg "
+								aria-hidden="true">
+								<Clock />
+							</div>
+							<p className="text-balance">
+								<LocalTime />
+							</p>
 						</div>
 
 						<div className="flex items-center gap-4 font-mono text-sm">
@@ -128,7 +156,7 @@ export default async function Home() {
 					</section>
 				</div>
 			</section>
-
+<NowPlaying />
 			<section className="flex flex-col gap-8">
 				<div className="flex justify-between">
 					<h2 className="title text-2xl font-semibold text-foreground sm:text-3xl">
@@ -144,7 +172,8 @@ export default async function Home() {
 				<Projects limit={LIMIT} />
 			</section>
 			<About />
-
+			<TechStack />
+			<ContributionGraph />
 			<Experience />
 			<section className="flex flex-col gap-8">
 				<div className="flex justify-between">
@@ -166,6 +195,7 @@ export default async function Home() {
 						/>
 					))}
 				</div>
+				<QuoteBlock />
 			</section>
 		</article>
 	);
