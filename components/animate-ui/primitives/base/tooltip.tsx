@@ -104,6 +104,7 @@ function TooltipTrigger({ onMouseMove, ...props }: TooltipTriggerProps) {
     <TooltipPrimitive.Trigger
       data-slot="tooltip-trigger"
       onMouseMove={handleMouseMove}
+      suppressHydrationWarning
       {...props}
     />
   );

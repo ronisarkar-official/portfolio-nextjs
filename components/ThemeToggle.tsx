@@ -131,14 +131,14 @@ export default function ThemeToggle() {
 		setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
 	};
 
-	if (!mounted) return null;
-
 	return (
 		<Button
 			size="icon"
 			variant="ghost"
 			onClick={handleThemeToggle}>
-			{resolvedTheme === 'dark' ? (
+			{!mounted ? (
+				<Sun className="opacity-50" />
+			) : resolvedTheme === 'dark' ? (
 				<AnimateIcon animateOnHover>
 					<Sun />
 				</AnimateIcon>

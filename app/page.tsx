@@ -19,8 +19,8 @@ import Projects from '@/components/Projects';
 import LinkWithIcon from '@/components/LinkWithIcon';
 import About from '@/components/About';
 import Experience from '@/components/Experience';
-import { getAllPosts } from '@/lib/markdown';
-import BlogCard from '@/components/BlogCard';
+import { getAllSanityPosts } from '@/lib/sanity';
+import SanityBlogCard from '@/components/blog/SanityBlogCard';
 import { ImageSwiper } from '@/components/image-swiper';
 import { Metadata } from 'next';
 import NowPlaying from '@/components/NowPlaying';
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-	const posts = getAllPosts().slice(0, LIMIT);
+	const posts = (await getAllSanityPosts()).slice(0, LIMIT);
 	const imageUrls =
 		'https://ik.imagekit.io/2zeqzsn1n/p-images/hero.webp?,https://ik.imagekit.io/2zeqzsn1n/p-images/profile3.webp';
 
@@ -189,8 +189,8 @@ export default async function Home() {
 				</div>
 				<div className="grid gap-4 md:grid-cols-2">
 					{posts.map((post) => (
-						<BlogCard
-							key={post.slug}
+						<SanityBlogCard
+							key={post._id}
 							post={post}
 						/>
 					))}

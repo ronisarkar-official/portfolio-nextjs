@@ -105,11 +105,9 @@ function GithubStars({
         setCurrentStars,
       }}
     >
-      {!isLoading && (
-        <Component ref={localRef} {...props}>
-          {children}
-        </Component>
-      )}
+      <Component ref={localRef} {...props}>
+        {children}
+      </Component>
     </GithubStarsProvider>
   );
 }

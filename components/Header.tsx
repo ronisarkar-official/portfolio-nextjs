@@ -58,9 +58,9 @@ export default function Header() {
 									href={nav.href}
 									aria-current={isActive(nav.href) ? 'page' : undefined}
 									className={
-										isActive(nav.href)
-											? 'text-foreground underline underline-offset-8 decoration-2'
-											: 'text-muted-foreground hover:text-foreground'
+										isActive(nav.href) ?
+											'text-foreground underline underline-offset-8 decoration-2'
+										:	'text-muted-foreground hover:text-foreground'
 									}>
 									{nav.name}
 								</Link>
@@ -105,7 +105,9 @@ export default function Header() {
 							aria-expanded={open}
 							aria-controls="mobile-nav"
 							onClick={toggleMenu}>
-							{open ? <X className="size-5" /> : <Menu className="size-5" />}
+							{open ?
+								<X className="size-5" />
+							:	<Menu className="size-5" />}
 						</Button>
 					</div>
 				</nav>
@@ -128,9 +130,9 @@ export default function Header() {
 											href={nav.href}
 											aria-current={isActive(nav.href) ? 'page' : undefined}
 											className={
-												isActive(nav.href)
-													? 'block rounded-md bg-accent/60 px-3 py-2 text-foreground'
-													: 'block rounded-md px-3 py-2 text-muted-foreground hover:bg-accent hover:text-foreground'
+												isActive(nav.href) ?
+													'block rounded-md bg-accent/60 px-3 py-2 text-foreground'
+												:	'block rounded-md px-3 py-2 text-muted-foreground hover:bg-accent hover:text-foreground'
 											}
 											onClick={closeMenu}>
 											{nav.name}
