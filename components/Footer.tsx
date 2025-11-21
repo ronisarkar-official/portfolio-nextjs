@@ -15,7 +15,7 @@ export default function Footer() {
 							<Link
 								className="link"
 								href="/">
-								{process.env.NEXT_PUBLIC_SITE_NAME}. All rights reservered.
+								{process.env.NEXT_PUBLIC_SITE_NAME}. All rights reserved.
 							</Link>{' '}
 						</p>
 						<FooterSurprise />

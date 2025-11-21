@@ -27,6 +27,8 @@ import NowPlaying from '@/components/NowPlaying';
 import ContributionGraph from '@/components/contribution-graph';
 import { QuoteBlock } from '@/components/QuoteBlock';
 
+import SpringAnimated from '@/components/SpringAnimated';
+
 const LIMIT = 2; // max show 2
 
 // Revalidate every hour
@@ -47,10 +49,12 @@ export default async function Home() {
 		<article className="mt-8 flex flex-col gap-6 pb-16 ">
 			<section className="flex flex-col items-start gap-8 md:flex-row-reverse md:items-center md:justify-between">
 				<div className="mx-auto md:mr-0 md:mx-0">
-					<ImageSwiper
-						images={imageUrls}
-						className="h-[233px] w-[175px] rounded-lg object-cover sm:h-[300px] sm:w-[225px]"
-					/>
+					<SpringAnimated hoverScale={1.02} tapScale={0.98}>
+						<ImageSwiper
+							images={imageUrls}
+							className="h-[233px] w-[175px] rounded-lg object-cover sm:h-[300px] sm:w-[225px]"
+						/>
+					</SpringAnimated>
 				</div>
 
 				<div className="flex max-w-[320px] flex-col sm:max-w-full">
@@ -111,9 +115,8 @@ export default async function Home() {
 							<p className="text-balance">
 								<a
 									className="underline-offset-4 hover:underline"
-									href="mailto:ronisarkar10938@gmail.com"
-									rel="noopener noreferrer">
-									ronisarkar10938@gmail.com
+									href="mailto:ronisarkar10938@gmail.com">
+									ronisarkar{''}10938{''}@{''}gmail{''}.com
 								</a>
 							</p>
 						</div>
@@ -144,19 +147,21 @@ export default async function Home() {
 					</div>
 
 					<section className="mt-6 flex flex-wrap items-center gap-4">
-						<Link
-							href="https://drive.google.com/file/d/1LUALqh7wvyjfcw2xyT4ofS5aQALpxD6l/view"
-							target="_blank">
-							<Button variant="outline">
-								<span className="font-semibold">Resume</span>
-								<FileDown className="ml-2 size-5" />
-							</Button>
-						</Link>
+						<SpringAnimated>
+							<Link
+								href="https://drive.google.com/file/d/1LUALqh7wvyjfcw2xyT4ofS5aQALpxD6l/view"
+								target="_blank">
+								<Button variant="outline">
+									<span className="font-semibold">Resume</span>
+									<FileDown className="ml-2 size-5" />
+								</Button>
+							</Link>
+						</SpringAnimated>
 						<Socials />
 					</section>
 				</div>
 			</section>
-<NowPlaying />
+			<NowPlaying />
 			<section className="flex flex-col gap-8">
 				<div className="flex justify-between">
 					<h2 className="title text-2xl font-semibold text-foreground sm:text-3xl">
@@ -189,10 +194,11 @@ export default async function Home() {
 				</div>
 				<div className="grid gap-4 md:grid-cols-2">
 					{posts.map((post) => (
-						<SanityBlogCard
-							key={post._id}
-							post={post}
-						/>
+						<SpringAnimated key={post._id} hoverScale={1.02}>
+							<SanityBlogCard
+								post={post}
+							/>
+						</SpringAnimated>
 					))}
 				</div>
 				<QuoteBlock />

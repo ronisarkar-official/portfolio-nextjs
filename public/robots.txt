@@ -1,9 +1,11 @@
 # *
 User-agent: *
 Allow: /
+Disallow: /studio
+Disallow: /api
+
+# Host
+Host: https://ronisarkar.spechype.com
 
 # Sitemaps
 Sitemap: https://ronisarkar.spechype.com/sitemap.xml
-
-# RSS Feed
-# https://ronisarkar.spechype.com/rss.xml

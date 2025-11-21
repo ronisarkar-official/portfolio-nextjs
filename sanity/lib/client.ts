@@ -6,7 +6,11 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true, // Set to false if statically generating pages, using ISR or tag-based revalidation
+  useCdn: false, // Disable CDN for SSR with revalidation to ensure fresh data
+  perspective: 'published', // Only fetch published documents
+  stega: {
+    enabled: false,
+  },
 })
 
 export const writeClient = createClient({
@@ -16,3 +20,4 @@ export const writeClient = createClient({
   useCdn: false, // We need fresh data for updates
   token: process.env.SANITY_API_TOKEN,
 })
+

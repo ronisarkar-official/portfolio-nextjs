@@ -21,20 +21,117 @@ import {
 	Laptop,
 	Search,
 	Briefcase,
+	Clock,
+	Calculator,
+	Copy,
+	Phone,
+	MapPin,
+	Globe,
+	Download,
+	FileText,
+	Sparkles,
+	Keyboard,
+	History,
+	Info,
 } from 'lucide-react';
 
 import { AnimatePresence, motion } from 'framer-motion';
 
+// Types
+interface RecentPage {
+	path: string;
+	label: string;
+	timestamp: number;
+}
+
 export default function CommandMenu() {
 	const [open, setOpen] = React.useState(false);
+	const [searchValue, setSearchValue] = React.useState('');
+	const [recentPages, setRecentPages] = React.useState<RecentPage[]>([]);
+	const [currentTime, setCurrentTime] = React.useState('');
+	const [calculatorResult, setCalculatorResult] = React.useState<string | null>(null);
 	const router = useRouter();
-	const { setTheme } = useTheme();
+	const { setTheme, theme } = useTheme();
+
+	// Track recent pages
+	React.useEffect(() => {
+		const stored = localStorage.getItem('recentPages');
+		if (stored) {
+			try {
+				setRecentPages(JSON.parse(stored));
+			} catch (e) {
+				console.error('Failed to parse recent pages:', e);
+			}
+		}
+	}, []);
+
+	const addRecentPage = React.useCallback((path: string, label: string) => {
+		setRecentPages((prev) => {
+			const filtered = prev.filter((p) => p.path !== path);
+			const updated = [{ path, label, timestamp: Date.now() }, ...filtered].slice(0, 5);
+			localStorage.setItem('recentPages', JSON.stringify(updated));
+			return updated;
+		});
+	}, []);
+
+	// Update time every second
+	React.useEffect(() => {
+		const updateTime = () => {
+			const now = new Date();
+			setCurrentTime(
+				now.toLocaleTimeString('en-US', {
+					hour: 'numeric',
+					minute: '2-digit',
+					hour12: true,
+				}) +
+					' • ' +
+					now.toLocaleDateString('en-US', {
+						weekday: 'short',
+						month: 'short',
+						day: 'numeric',
+					}),
+			);
+		};
+		updateTime();
+		const interval = setInterval(updateTime, 1000);
+		return () => clearInterval(interval);
+	}, []);
+
+	// Calculator functionality
+	React.useEffect(() => {
+		if (!searchValue) {
+			setCalculatorResult(null);
+			return;
+		}
+
+		// Check if the search value is a math expression
+		const mathPattern = /^[\d+\-*/.() ]+$/;
+		if (mathPattern.test(searchValue)) {
+			try {
+				// Safe evaluation using Function constructor
+				const result = Function(`'use strict'; return (${searchValue})`)();
+				if (typeof result === 'number' && !isNaN(result)) {
+					setCalculatorResult(`= ${result}`);
+				} else {
+					setCalculatorResult(null);
+				}
+			} catch {
+				setCalculatorResult(null);
+			}
+		} else {
+			setCalculatorResult(null);
+		}
+	}, [searchValue]);
 
 	React.useEffect(() => {
 		const down = (e: KeyboardEvent) => {
 			if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
 				e.preventDefault();
 				setOpen((open) => !open);
+			}
+			// ESC to close
+			if (e.key === 'Escape' && open) {
+				setOpen(false);
 			}
 		};
 
@@ -46,11 +143,24 @@ export default function CommandMenu() {
 			document.removeEventListener('keydown', down);
 			document.removeEventListener('toggle-command-menu', toggle);
 		};
-	}, []);
+	}, [open]);
 
-	const runCommand = React.useCallback((command: () => void) => {
-		setOpen(false);
-		command();
+	const runCommand = React.useCallback(
+		(command: () => void, pagePath?: string, pageLabel?: string) => {
+			setOpen(false);
+			setSearchValue('');
+			if (pagePath && pageLabel) {
+				addRecentPage(pagePath, pageLabel);
+			}
+			command();
+		},
+		[addRecentPage],
+	);
+
+	const copyToClipboard = React.useCallback((text: string, label: string) => {
+		navigator.clipboard.writeText(text);
+		// You could add a toast notification here
+		console.log(`Copied ${label} to clipboard`);
 	}, []);
 
 	return (
@@ -84,34 +194,105 @@ export default function CommandMenu() {
 								<VisuallyHidden>
 									<Dialog.Title>Global Command Menu</Dialog.Title>
 									<Dialog.Description>
-										Search for pages, change theme, or access social links.
+										Search for pages, calculate, change theme, or access social links.
 									</Dialog.Description>
 								</VisuallyHidden>
 
-								<Command className="w-full h-full">
+								<Command className="w-full h-full" shouldFilter={false}>
+									{/* Header with Time and Keyboard Shortcut */}
+									<div className="flex items-center justify-between px-4 py-2 border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/50">
+										<div className="flex items-center gap-2 text-xs text-neutral-500">
+											<Clock className="w-3 h-3" />
+											<span>{currentTime}</span>
+										</div>
+										<div className="flex items-center gap-1 text-xs text-neutral-500">
+											<kbd className="px-1.5 py-0.5 rounded bg-neutral-200 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-mono text-[10px]">
+												⌘K
+											</kbd>
+											<span>to toggle</span>
+										</div>
+									</div>
+
+									{/* Search Input */}
 									<div className="flex items-center border-b border-neutral-200 dark:border-neutral-800 px-3">
 										<Search className="w-5 h-5 text-neutral-500 mr-2" />
 										<Command.Input
+											value={searchValue}
+											onValueChange={setSearchValue}
 											className="w-full h-12 bg-transparent outline-none text-lg text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-500"
 											placeholder="Type a command or search..."
 										/>
+
 									</div>
 
-									<Command.List className="max-h-[300px] overflow-y-auto overflow-x-hidden py-2 px-2 scrollbar-hide">
+									<Command.List className="max-h-[400px] overflow-y-auto overflow-x-hidden py-2 px-2 scrollbar-hide">
 										<Command.Empty className="py-6 text-center text-neutral-500">
 											No results found.
 										</Command.Empty>
 
+										{/* Calculator Result */}
+										{calculatorResult && (
+											<>
+												<Command.Group
+													heading="Calculator"
+													className="text-xs font-medium text-neutral-500 mb-2 px-2">
+													<Command.Item
+														onSelect={() =>
+															runCommand(() =>
+																copyToClipboard(
+																	calculatorResult.replace('= ', ''),
+																	'result',
+																),
+															)
+														}
+														className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
+														<Calculator className="w-4 h-4" />
+														<span className="flex-1">{searchValue} <span className="font-semibold">{calculatorResult}</span></span>
+														<Copy className="w-3 h-3 text-neutral-400" />
+													</Command.Item>
+												</Command.Group>
+												<Command.Separator className="h-px bg-neutral-200 dark:bg-neutral-800 my-2" />
+											</>
+										)}
+
+										{/* Recently Accessed Pages */}
+										{recentPages.length > 0 && !searchValue && (
+											<>
+												<Command.Group
+													heading="Recently Accessed"
+													className="text-xs font-medium text-neutral-500 mb-2 px-2">
+													{recentPages.map((page) => (
+														<Command.Item
+															key={page.path}
+															onSelect={() =>
+																runCommand(() => router.push(page.path))
+															}
+															className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
+															<History className="w-4 h-4" />
+															<span className="flex-1">{page.label}</span>
+															<span className="text-xs text-neutral-400">
+																{new Date(page.timestamp).toLocaleDateString()}
+															</span>
+														</Command.Item>
+													))}
+												</Command.Group>
+												<Command.Separator className="h-px bg-neutral-200 dark:bg-neutral-800 my-2" />
+											</>
+										)}
+
+										{/* Pages */}
 										<Command.Group
 											heading="Pages"
 											className="text-xs font-medium text-neutral-500 mb-2 px-2">
 											<Command.Item
-												onSelect={() => runCommand(() => router.push('/'))}
+												keywords={['home', 'main', 'index', 'landing']}
+												onSelect={() => runCommand(() => router.push('/'), '/', 'Home')}
 												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
 												<Home className="w-4 h-4" />
 												Home
 											</Command.Item>
 											<Command.Item
+												keywords={['about', 'bio', 'profile', 'info']}
 												onSelect={() => {
 													runCommand(() => {
 														if (window.location.pathname === '/') {
@@ -121,13 +302,14 @@ export default function CommandMenu() {
 														} else {
 															router.push('/#about');
 														}
-													});
+													}, '/#about', 'About');
 												}}
 												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
 												<User className="w-4 h-4" />
 												About
 											</Command.Item>
 											<Command.Item
+												keywords={['experience', 'work', 'career', 'jobs', 'resume']}
 												onSelect={() => {
 													runCommand(() => {
 														if (window.location.pathname === '/') {
@@ -137,22 +319,24 @@ export default function CommandMenu() {
 														} else {
 															router.push('/#experience');
 														}
-													});
+													}, '/#experience', 'Experience');
 												}}
 												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
 												<Briefcase className="w-4 h-4" />
 												Experience
 											</Command.Item>
 											<Command.Item
+												keywords={['projects', 'portfolio', 'work', 'code', 'github']}
 												onSelect={() =>
-													runCommand(() => router.push('/projects'))
+													runCommand(() => router.push('/projects'), '/projects', 'Projects')
 												}
 												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
 												<Code className="w-4 h-4" />
 												Projects
 											</Command.Item>
 											<Command.Item
-												onSelect={() => runCommand(() => router.push('/blog'))}
+												keywords={['blog', 'articles', 'writing', 'posts']}
+												onSelect={() => runCommand(() => router.push('/blog'), '/blog', 'Blog')}
 												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
 												<PenTool className="w-4 h-4" />
 												Blog
@@ -160,47 +344,111 @@ export default function CommandMenu() {
 										</Command.Group>
 										<Command.Separator className="h-px bg-neutral-200 dark:bg-neutral-800 my-2" />
 
+										{/* Appearance */}
 										<Command.Group
-											heading="General"
+											heading="Appearance"
 											className="text-xs font-medium text-neutral-500 mb-2 px-2">
 											<Command.Item
+												keywords={['light', 'theme', 'bright', 'day']}
 												onSelect={() => runCommand(() => setTheme('light'))}
 												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
 												<Sun className="w-4 h-4" />
-												Light Mode
+												<span className="flex-1">Light Mode</span>
+												{theme === 'light' && (
+													<span className="text-xs text-emerald-500">●</span>
+												)}
 											</Command.Item>
 											<Command.Item
+												keywords={['dark', 'theme', 'night']}
 												onSelect={() => runCommand(() => setTheme('dark'))}
 												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
 												<Moon className="w-4 h-4" />
-												Dark Mode
+												<span className="flex-1">Dark Mode</span>
+												{theme === 'dark' && (
+													<span className="text-xs text-emerald-500">●</span>
+												)}
 											</Command.Item>
 											<Command.Item
+												keywords={['system', 'theme', 'auto', 'default']}
 												onSelect={() => runCommand(() => setTheme('system'))}
 												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
 												<Laptop className="w-4 h-4" />
-												System Theme
-											</Command.Item>
-											<Command.Item
-												onSelect={() =>
-													runCommand(() => {
-														navigator.clipboard.writeText(
-															'ronisarkarofficial@gmail.com',
-														);
-													})
-												}
-												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
-												<Mail className="w-4 h-4" />
-												Copy Email
+												<span className="flex-1">System Theme</span>
+												{theme === 'system' && (
+													<span className="text-xs text-emerald-500">●</span>
+												)}
 											</Command.Item>
 										</Command.Group>
 
 										<Command.Separator className="h-px bg-neutral-200 dark:bg-neutral-800 my-2" />
 
+										{/* Quick Actions */}
 										<Command.Group
-											heading="Socials"
+											heading="Quick Actions"
 											className="text-xs font-medium text-neutral-500 mb-2 px-2">
 											<Command.Item
+												keywords={['copy', 'email', 'contact', 'mail']}
+												onSelect={() =>
+													runCommand(() =>
+														copyToClipboard(
+															'ronisarkarofficial@gmail.com',
+															'Email',
+														),
+													)
+												}
+												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
+												<Mail className="w-4 h-4" />
+												<span className="flex-1">Copy Email</span>
+												<Copy className="w-3 h-3 text-neutral-400" />
+											</Command.Item>
+											<Command.Item
+												keywords={['copy', 'website', 'url', 'link']}
+												onSelect={() =>
+													runCommand(() =>
+														copyToClipboard(
+															'https://ronisarkar.spechype.com',
+															'Website URL',
+														),
+													)
+												}
+												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
+												<Globe className="w-4 h-4" />
+												<span className="flex-1">Copy Website URL</span>
+												<Copy className="w-3 h-3 text-neutral-400" />
+											</Command.Item>
+											<Command.Item
+												keywords={['download', 'resume', 'cv', 'pdf']}
+												onSelect={() =>
+													runCommand(() => {
+														// Add your resume download link here
+														window.open('/resume.pdf', '_blank');
+													})
+												}
+												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
+												<Download className="w-4 h-4" />
+												Download Resume
+											</Command.Item>
+											<Command.Item
+												keywords={['scroll', 'top', 'beginning']}
+												onSelect={() =>
+													runCommand(() =>
+														window.scrollTo({ top: 0, behavior: 'smooth' }),
+													)
+												}
+												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
+												<Sparkles className="w-4 h-4" />
+												Scroll to Top
+											</Command.Item>
+										</Command.Group>
+
+										<Command.Separator className="h-px bg-neutral-200 dark:bg-neutral-800 my-2" />
+
+										{/* Social Media */}
+										<Command.Group
+											heading="Social Media"
+											className="text-xs font-medium text-neutral-500 mb-2 px-2">
+											<Command.Item
+												keywords={['github', 'code', 'repository', 'open source']}
 												onSelect={() =>
 													runCommand(() =>
 														window.open(
@@ -214,6 +462,7 @@ export default function CommandMenu() {
 												GitHub
 											</Command.Item>
 											<Command.Item
+												keywords={['linkedin', 'professional', 'network', 'career']}
 												onSelect={() =>
 													runCommand(() =>
 														window.open(
@@ -227,6 +476,7 @@ export default function CommandMenu() {
 												LinkedIn
 											</Command.Item>
 											<Command.Item
+												keywords={['twitter', 'x', 'social', 'tweets']}
 												onSelect={() =>
 													runCommand(() =>
 														window.open(
@@ -238,6 +488,40 @@ export default function CommandMenu() {
 												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
 												<Twitter className="w-4 h-4" />
 												Twitter
+											</Command.Item>
+										</Command.Group>
+
+										<Command.Separator className="h-px bg-neutral-200 dark:bg-neutral-800 my-2" />
+
+										{/* System Info */}
+										<Command.Group
+											heading="System Info"
+											className="text-xs font-medium text-neutral-500 mb-2 px-2">
+											<Command.Item
+												keywords={['info', 'about', 'version']}
+												onSelect={() =>
+													runCommand(() =>
+														alert(
+															`Portfolio v1.0\nBuilt with Next.js\n${navigator.userAgent}`,
+														),
+													)
+												}
+												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
+												<Info className="w-4 h-4" />
+												System Information
+											</Command.Item>
+											<Command.Item
+												keywords={['keyboard', 'shortcuts', 'keys', 'help']}
+												onSelect={() =>
+													runCommand(() =>
+														alert(
+															'Keyboard Shortcuts:\n⌘K - Open command menu\nESC - Close menu\n↑↓ - Navigate items\n↵ - Select item',
+														),
+													)
+												}
+												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
+												<Keyboard className="w-4 h-4" />
+												Keyboard Shortcuts
 											</Command.Item>
 										</Command.Group>
 									</Command.List>

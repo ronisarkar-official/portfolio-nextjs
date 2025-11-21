@@ -1,0 +1,35 @@
+/* Contribution graph color variables for light and dark themes */
+:root {
+	--contrib-0: #ebedf0;
+	--contrib-1: #9be9a8;
+	--contrib-2: #30c463;
+	--contrib-3: #30a14e;
+	--contrib-4: #216e39;
+	--contrib-stroke: #e6e6e6;
+	--tooltip-bg: rgba(17, 17, 17, 0.95);
+	--tooltip-color: #fff;
+}
+
+.dark {
+	--contrib-0: #161b22;
+	--contrib-1: #0e4429;
+	--contrib-2: #006d32;
+	--contrib-3: #26a641;
+	--contrib-4: #39d353;
+	--contrib-stroke: transparent;
+	--tooltip-bg: rgba(255, 255, 255, 0.06);
+	--tooltip-color: #fff;
+}
+
+.contribution-tooltip {
+	position: absolute;
+	pointer-events: none;
+	display: none;
+	padding: 6px 8px;
+	background: var(--tooltip-bg);
+	color: var(--tooltip-color);
+	border-radius: 6px;
+	font-size: 12px;
+	white-space: nowrap;
+	z-index: 1000;
+}
