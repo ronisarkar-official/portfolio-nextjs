@@ -223,4 +223,30 @@ export async function getAllCategories() {
   }
 }
 
+/**
+ * Get site settings (singleton document)
+ */
+export async function getSiteSettings() {
+  const query = `*[_type == "settings"][0] {
+    _id,
+    resumeUrl,
+    "heroImages": heroImages[]{
+      "url": asset->url,
+      alt
+    },
+    rotatingTitles,
+    email,
+    websiteUrl,
+    aboutContent
+  }`
+
+  try {
+    const settings = await client.fetch(query)
+    return settings
+  } catch (error) {
+    console.error('Error fetching site settings:', error)
+    return null
+  }
+}
+
 export { calculateReadingTime }

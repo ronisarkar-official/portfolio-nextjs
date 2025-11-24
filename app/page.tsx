@@ -19,7 +19,7 @@ import Projects from '@/components/Projects';
 import LinkWithIcon from '@/components/LinkWithIcon';
 import About from '@/components/About';
 import Experience from '@/components/Experience';
-import { getAllSanityPosts } from '@/lib/sanity';
+import { getAllSanityPosts, getSiteSettings } from '@/lib/sanity';
 import SanityBlogCard from '@/components/blog/SanityBlogCard';
 import { ImageSwiper } from '@/components/image-swiper';
 import { Metadata } from 'next';
@@ -42,8 +42,22 @@ export const metadata: Metadata = {
 
 export default async function Home() {
 	const posts = (await getAllSanityPosts()).slice(0, LIMIT);
-	const imageUrls =
-		'https://ik.imagekit.io/2zeqzsn1n/p-images/hero.webp?,https://ik.imagekit.io/2zeqzsn1n/p-images/profile3.webp';
+	const settings = await getSiteSettings();
+	const resumeUrl = settings?.resumeUrl || 'https://drive.google.com/file/d/1LUALqh7wvyjfcw2xyT4ofS5aQALpxD6l/view';
+	
+	// Use hero images from Sanity or fallback to default
+	const imageUrls = settings?.heroImages && settings.heroImages.length > 0
+		? settings.heroImages.map((img: { url: string }) => img.url).join(',')
+		: 'https://ik.imagekit.io/2zeqzsn1n/p-images/hero.webp?,https://ik.imagekit.io/2zeqzsn1n/p-images/profile3.webp';
+
+	// Use rotating titles from Sanity or fallback to default
+	const rotatingTitles = settings?.rotatingTitles && settings.rotatingTitles.length > 0
+		? settings.rotatingTitles
+		: ['Full-Stack Developer', 'UI/UX Enthusiast', 'Open Source Contributor'];
+
+	// Contact information from Sanity or fallback to defaults
+	const email = settings?.email || 'ronisarkar10938@gmail.com';
+	const websiteUrl = settings?.websiteUrl || 'https://ronisarkar.spechype.com';
 
 	return (
 		<article className="mt-8 flex flex-col gap-6 pb-16 ">
@@ -64,7 +78,6 @@ export default async function Home() {
 						<span className="bg-gradient-to-r from-primary to-foreground bg-clip-text text-transparent">
 							Roni
 						</span>
-						👋
 					</h1>
 
 					<div
@@ -77,11 +90,7 @@ export default async function Home() {
 								<CodeXml />
 							</div>
 							<TextFlip
-								words={[
-									'Full-Stack Developer',
-									'UI/UX Enthusiast',
-									'Open Source Contributor',
-								]}
+								words={rotatingTitles}
 								className="text-balance"
 							/>
 						</div>
@@ -115,8 +124,8 @@ export default async function Home() {
 							<p className="text-balance">
 								<a
 									className="underline-offset-4 hover:underline"
-									href="mailto:ronisarkar10938@gmail.com">
-									ronisarkar{''}10938{''}@{''}gmail{''}.com
+									href={`mailto:${email}`}>
+									{email}
 								</a>
 							</p>
 						</div>
@@ -129,10 +138,10 @@ export default async function Home() {
 							<p className="text-balance">
 								<a
 									className="underline-offset-4 hover:underline"
-									href="https://ronisarkar.spechype.com"
+									href={websiteUrl}
 									target="_blank"
 									rel="noopener noreferrer">
-									ronisarkar.spechype.com
+									{websiteUrl.replace(/^https?:\/\//, '')}
 								</a>
 							</p>
 						</div>
@@ -149,7 +158,7 @@ export default async function Home() {
 					<section className="mt-6 flex flex-wrap items-center gap-4">
 						<SpringAnimated>
 							<Link
-								href="https://drive.google.com/file/d/1LUALqh7wvyjfcw2xyT4ofS5aQALpxD6l/view"
+								href={resumeUrl}
 								target="_blank">
 								<Button variant="outline">
 									<span className="font-semibold">Resume</span>

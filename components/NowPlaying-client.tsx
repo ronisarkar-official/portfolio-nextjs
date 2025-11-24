@@ -18,7 +18,12 @@ export default function NowPlayingClient({ initialData }: Props) {
 
 	const fetchData = useCallback(async () => {
 		try {
-			const res = await fetch('/api/spotify');
+			const res = await fetch('/api/spotify', {
+				cache: 'no-store',
+				headers: {
+					'Cache-Control': 'no-cache',
+				},
+			});
 			if (res.ok) {
 				const json = await res.json();
 				setData(json);

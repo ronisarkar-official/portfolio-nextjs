@@ -70,10 +70,10 @@ async function getRecentlyPlayed(
 }
 
 /**
- * Fetches current Spotify playing data.
- * Cached for 30 seconds to reduce API calls while maintaining freshness.
+ * Fetches current Spotify playing data without caching.
+ * Use this for real-time updates (API routes, client polling).
  */
-async function fetchSpotifyData(): Promise<SpotifyData> {
+export async function getSpotifyData(): Promise<SpotifyData> {
 	// Return empty state if credentials not configured
 	if (!client_id || !client_secret || !refresh_token) {
 		return { isPlaying: false };
@@ -93,6 +93,9 @@ async function fetchSpotifyData(): Promise<SpotifyData> {
 		// If nothing playing or error, fall back to recently played
 		if (response.status === 204 || response.status > 400) {
 			const recentlyPlayed = await getRecentlyPlayed(access_token);
+			if (recentlyPlayed) {
+				console.log('[Spotify] Recently played:', recentlyPlayed.title);
+			}
 			return recentlyPlayed ?? { isPlaying: false };
 		}
 
@@ -101,10 +104,13 @@ async function fetchSpotifyData(): Promise<SpotifyData> {
 		// If no current item, fall back to recently played
 		if (!song.item) {
 			const recentlyPlayed = await getRecentlyPlayed(access_token);
+			if (recentlyPlayed) {
+				console.log('[Spotify] Recently played (no item):', recentlyPlayed.title);
+			}
 			return recentlyPlayed ?? { isPlaying: false };
 		}
 
-		return {
+		const result = {
 			isPlaying: song.is_playing,
 			title: song.item.name,
 			artist: song.item.artists.map((artist: any) => artist.name).join(', '),
@@ -112,6 +118,9 @@ async function fetchSpotifyData(): Promise<SpotifyData> {
 			albumImageUrl: song.item.album.images[0]?.url,
 			songUrl: song.item.external_urls.spotify,
 		};
+		
+		console.log('[Spotify] Current track:', result.title, '| Playing:', result.isPlaying);
+		return result;
 	} catch (error) {
 		console.error('Error fetching Spotify data:', error);
 		return { isPlaying: false };
@@ -119,11 +128,12 @@ async function fetchSpotifyData(): Promise<SpotifyData> {
 }
 
 /**
- * Get Spotify data with caching.
+ * Get Spotify data with caching for server components.
  * Cached for 30 seconds to balance freshness with API rate limits.
+ * Use this ONLY for initial server-side rendering.
  */
-export const getSpotifyData = unstable_cache(
-	async () => fetchSpotifyData(),
+export const getSpotifyDataCached = unstable_cache(
+	async () => getSpotifyData(),
 	['spotify-now-playing'],
 	{
 		revalidate: 30, // Cache for 30 seconds

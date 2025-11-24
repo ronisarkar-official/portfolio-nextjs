@@ -1,4 +1,4 @@
-import { getSpotifyData } from '@/lib/spotify';
+import { getSpotifyDataCached } from '@/lib/spotify';
 import NowPlayingClient from './NowPlaying-client';
 
 /**
@@ -7,8 +7,8 @@ import NowPlayingClient from './NowPlaying-client';
  * then client component polls for updates every 30 seconds.
  */
 export default async function NowPlaying() {
-	// Fetch initial data on server
-	const initialData = await getSpotifyData();
+	// Fetch initial data on server (cached for 30s)
+	const initialData = await getSpotifyDataCached();
 
 	// Pass to client component for polling
 	return <NowPlayingClient initialData={initialData} />;
