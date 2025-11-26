@@ -11,7 +11,7 @@ interface Props {
 
 /**
  * Client component that handles real-time Spotify data polling.
- * Receives initial server-rendered data and updates every 30 seconds.
+ * Receives initial server-rendered data and updates every 15 seconds.
  */
 export default function NowPlayingClient({ initialData }: Props) {
 	const [data, setData] = useState<SpotifyData>(initialData);
@@ -34,8 +34,8 @@ export default function NowPlayingClient({ initialData }: Props) {
 	}, []);
 
 	useEffect(() => {
-		// Poll every 30 seconds for updates
-		const interval = setInterval(fetchData, 30000);
+		// Poll every 15 seconds for updates
+		const interval = setInterval(fetchData, 15000);
 		return () => clearInterval(interval);
 	}, [fetchData]);
 

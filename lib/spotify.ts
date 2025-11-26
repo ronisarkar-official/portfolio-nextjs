@@ -51,7 +51,20 @@ async function getRecentlyPlayed(
 		if (response.ok) {
 			const data = await response.json();
 			if (data.items && data.items.length > 0) {
-				const track = data.items[0].track;
+				const item = data.items[0];
+				const track = item.track;
+				const playedAt = new Date(item.played_at);
+				const now = new Date();
+				const hoursSincePlay = (now.getTime() - playedAt.getTime()) / (1000 * 60 * 60);
+				
+				// Only show recently played if it was within the last 24 hours
+				if (hoursSincePlay > 24) {
+					console.log(`[Spotify] Song "${track.name}" was played ${hoursSincePlay.toFixed(1)} hours ago (too old, skipping)`);
+					return null;
+				}
+				
+				console.log(`[Spotify] Recently played "${track.name}" from ${hoursSincePlay.toFixed(1)} hours ago`);
+				
 				return {
 					isPlaying: false,
 					title: track.name,
@@ -63,7 +76,7 @@ async function getRecentlyPlayed(
 			}
 		}
 	} catch (error) {
-		console.error('Error fetching recently played:', error);
+		console.error('[Spotify] Error fetching recently played:', error);
 	}
 
 	return null;
@@ -129,14 +142,14 @@ export async function getSpotifyData(): Promise<SpotifyData> {
 
 /**
  * Get Spotify data with caching for server components.
- * Cached for 30 seconds to balance freshness with API rate limits.
+ * Cached for 10 seconds to balance freshness with API rate limits.
  * Use this ONLY for initial server-side rendering.
  */
 export const getSpotifyDataCached = unstable_cache(
 	async () => getSpotifyData(),
 	['spotify-now-playing'],
 	{
-		revalidate: 30, // Cache for 30 seconds
+		revalidate: 10, // Cache for 10 seconds
 		tags: ['spotify'],
 	},
 );
