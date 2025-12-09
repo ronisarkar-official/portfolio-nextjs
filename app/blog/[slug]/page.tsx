@@ -21,6 +21,8 @@ interface BlogPostPageProps {
   params: Promise<{ slug: string }>
 }
 
+export const dynamic = 'force-dynamic';
+
 // Generate static paths for all posts
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs();

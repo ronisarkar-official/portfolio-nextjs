@@ -137,7 +137,7 @@ export default async function ContributionGraph({
 
 			{/* Month labels row */}
 			<div
-				className="flex mb-1 text-xs text-muted-foreground flex-row ml-6 md:ml-6"
+				className="flex mb-1 text-xs text-muted-foreground flex-row ml-2 md:ml-2"
 				style={{ marginBottom: 6 }}>
 				<div style={{ width: squareSize }} />
 				{/* spacer for weekday column */}

@@ -55,16 +55,21 @@ async function getRecentlyPlayed(
 				const track = item.track;
 				const playedAt = new Date(item.played_at);
 				const now = new Date();
-				const hoursSincePlay = (now.getTime() - playedAt.getTime()) / (1000 * 60 * 60);
-				
+				const hoursSincePlay =
+					(now.getTime() - playedAt.getTime()) / (1000 * 60 * 60);
+
 				// Only show recently played if it was within the last 24 hours
 				if (hoursSincePlay > 24) {
-					console.log(`[Spotify] Song "${track.name}" was played ${hoursSincePlay.toFixed(1)} hours ago (too old, skipping)`);
+					console.log(
+						`[Spotify] Song "${track.name}" was played ${hoursSincePlay.toFixed(1)} hours ago (too old, skipping)`,
+					);
 					return null;
 				}
-				
-				console.log(`[Spotify] Recently played "${track.name}" from ${hoursSincePlay.toFixed(1)} hours ago`);
-				
+
+				console.log(
+					`[Spotify] Recently played "${track.name}" from ${hoursSincePlay.toFixed(1)} hours ago`,
+				);
+
 				return {
 					isPlaying: false,
 					title: track.name,
@@ -83,13 +88,26 @@ async function getRecentlyPlayed(
 }
 
 /**
+ * Default state to show when no music is available
+ */
+const DEFAULT_STATE: SpotifyData = {
+	isPlaying: false,
+	title: 'No song playing',
+	artist: 'Connect your Spotify',
+	album: undefined,
+	albumImageUrl: undefined,
+	songUrl: undefined,
+};
+
+/**
  * Fetches current Spotify playing data without caching.
  * Use this for real-time updates (API routes, client polling).
  */
 export async function getSpotifyData(): Promise<SpotifyData> {
-	// Return empty state if credentials not configured
+	// Return default state if credentials not configured
 	if (!client_id || !client_secret || !refresh_token) {
-		return { isPlaying: false };
+		console.log('[Spotify] Credentials not configured');
+		return DEFAULT_STATE;
 	}
 
 	try {
@@ -108,8 +126,10 @@ export async function getSpotifyData(): Promise<SpotifyData> {
 			const recentlyPlayed = await getRecentlyPlayed(access_token);
 			if (recentlyPlayed) {
 				console.log('[Spotify] Recently played:', recentlyPlayed.title);
+				return recentlyPlayed;
 			}
-			return recentlyPlayed ?? { isPlaying: false };
+			console.log('[Spotify] No recently played tracks found');
+			return DEFAULT_STATE;
 		}
 
 		const song = await response.json();
@@ -119,8 +139,10 @@ export async function getSpotifyData(): Promise<SpotifyData> {
 			const recentlyPlayed = await getRecentlyPlayed(access_token);
 			if (recentlyPlayed) {
 				console.log('[Spotify] Recently played (no item):', recentlyPlayed.title);
+				return recentlyPlayed;
 			}
-			return recentlyPlayed ?? { isPlaying: false };
+			console.log('[Spotify] No item in current playing');
+			return DEFAULT_STATE;
 		}
 
 		const result = {
@@ -131,12 +153,17 @@ export async function getSpotifyData(): Promise<SpotifyData> {
 			albumImageUrl: song.item.album.images[0]?.url,
 			songUrl: song.item.external_urls.spotify,
 		};
-		
-		console.log('[Spotify] Current track:', result.title, '| Playing:', result.isPlaying);
+
+		console.log(
+			'[Spotify] Current track:',
+			result.title,
+			'| Playing:',
+			result.isPlaying,
+		);
 		return result;
 	} catch (error) {
-		console.error('Error fetching Spotify data:', error);
-		return { isPlaying: false };
+		console.error('[Spotify] Error fetching data:', error);
+		return DEFAULT_STATE;
 	}
 }
 
