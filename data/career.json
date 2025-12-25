@@ -8,10 +8,9 @@
 			"start": "Sep 2022",
 			"end": "",
 			"description": [
-				"Developed NextJs Blog App — a NextJS + Tailwind CSS blog app with authentication, admin panel, post CRUD, seo optimization, search and pagination",
-				"Designed MySQL schema, implemented server-side logic in PHP and added client-side validation and responsive UI",
-
-				"Practiced end-to-end development: requirements → implementation → deployment; worked with version control and responsive design"
+				"Built and launched a full-featured Next.js blog with Tailwind CSS — including user authentication, an admin panel, post CRUD, SEO optimizations, search, and pagination.",
+				"Designed a clean MySQL schema and implemented server-side APIs in PHP, plus client-side validation and responsive UI for a smoother user experience.",
+				"Managed the project end-to-end: gathered requirements, implemented features, version-controlled the codebase with Git, and deployed the site — gaining hands-on experience with deployment and CI practices."
 			]
 		}
 	]

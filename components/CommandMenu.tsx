@@ -490,40 +490,6 @@ export default function CommandMenu() {
 												Twitter
 											</Command.Item>
 										</Command.Group>
-
-										<Command.Separator className="h-px bg-neutral-200 dark:bg-neutral-800 my-2" />
-
-										{/* System Info */}
-										<Command.Group
-											heading="System Info"
-											className="text-xs font-medium text-neutral-500 mb-2 px-2">
-											<Command.Item
-												keywords={['info', 'about', 'version']}
-												onSelect={() =>
-													runCommand(() =>
-														alert(
-															`Portfolio v1.0\nBuilt with Next.js\n${navigator.userAgent}`,
-														),
-													)
-												}
-												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
-												<Info className="w-4 h-4" />
-												System Information
-											</Command.Item>
-											<Command.Item
-												keywords={['keyboard', 'shortcuts', 'keys', 'help']}
-												onSelect={() =>
-													runCommand(() =>
-														alert(
-															'Keyboard Shortcuts:\n⌘K - Open command menu\nESC - Close menu\n↑↓ - Navigate items\n↵ - Select item',
-														),
-													)
-												}
-												className="flex items-center gap-2 px-2 py-2 rounded-lg text-sm text-neutral-900 dark:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer aria-selected:bg-neutral-100 dark:aria-selected:bg-neutral-800 transition-colors">
-												<Keyboard className="w-4 h-4" />
-												Keyboard Shortcuts
-											</Command.Item>
-										</Command.Group>
 									</Command.List>
 								</Command>
 							</motion.div>

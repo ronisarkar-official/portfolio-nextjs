@@ -1,6 +1,20 @@
 {
 	"education": [
 		{
+			"name": "Techno India University",
+			"href": "https://www.technoindiauniversity.ac.in",
+			"title": "Master of Computer Applications (MCA) — Web & Software Development",
+			"logo": "https://ik.imagekit.io/2zeqzsn1n/college2.webp",
+			"start": "Dec 2025",
+			"end": "Present",
+			"description": [
+				"Pursuing Master of Computer Applications with a specialization in Web & Software Development (ongoing).",
+				"Focus on modern full‑stack development using TypeScript, React/Next.js, Node.js and Tailwind CSS.",
+				"Hands-on with databases (Postgres, MongoDB), REST/GraphQL APIs, authentication, and cloud deployments.",
+				"Coursework and projects emphasize scalable web architecture, web security, DevOps (CI/CD), and collaborative Git workflows."
+			]
+		},
+		{
 			"name": "Murshidabad College of Engineering & Technology",
 			"href": "",
 			"title": "Bachelor of Computer Applications (BCA) — Web & Software Development",
@@ -9,8 +23,6 @@
 			"end": "Jul 2025",
 			"description": [
 				"Completed BCA with a focus on web development and software engineering fundamentals",
-				"Final Year Project: SmartLibrary — a PHP + Tailwind CSS Library Management System (authentication, admin panel, book CRUD and search)",
-				"Built core pages: admin, login, register, add book; implemented server-side logic with PHP and MySQL",
 				"Hands-on with MERN basics, responsive UI with Tailwind, and project-level version control"
 			],
 			"links": [

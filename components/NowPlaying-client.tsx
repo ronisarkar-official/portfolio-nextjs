@@ -49,7 +49,7 @@ export default function NowPlayingClient({ initialData }: Props) {
 				<div className="flex items-center gap-3 p-3">
 					{/* Album artwork or Spotify icon */}
 					{data.albumImageUrl ? (
-						<div className="relative w-14 h-14 flex-shrink-0 rounded-md overflow-hidden">
+						<div className="relative w-14 h-14 flex-shrink-0 rounded-md overflow-hidden border">
 							<Image
 								src={data.albumImageUrl}
 								alt={data.album ?? 'Album artwork'}

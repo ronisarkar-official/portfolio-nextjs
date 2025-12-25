@@ -47,7 +47,7 @@ export default function Header() {
 						href="/"
 						className="font-semibold tracking-tight hover:opacity-90">
 						<span className="sr-only">Home</span>
-						<span aria-hidden>Portfolio</span>
+						<span aria-hidden>Roni Sarkar</span>
 					</Link>
 
 					{/* Desktop nav */}
