@@ -43,13 +43,14 @@ export default function NowPlayingClient({ initialData }: Props) {
 		'w-full rounded-lg border transition-colors duration-150';
 
 	return (
-		<div className="w-full" aria-live="polite">
-			<div
-				className={`${containerBase} border-gray-200 dark:border-zinc-700`}>
+		<div
+			className="w-full"
+			aria-live="polite">
+			<div className={`${containerBase} border-gray-200 dark:border-zinc-700`}>
 				<div className="flex items-center gap-3 p-3">
 					{/* Album artwork or Spotify icon */}
-					{data.albumImageUrl ? (
-						<div className="relative w-14 h-14 flex-shrink-0 rounded-md overflow-hidden border">
+					{data.albumImageUrl ?
+						<div className="relative w-14 h-14 flex-shrink-0 rounded-md overflow-hidden border ">
 							<Image
 								src={data.albumImageUrl}
 								alt={data.album ?? 'Album artwork'}
@@ -60,18 +61,20 @@ export default function NowPlayingClient({ initialData }: Props) {
 								priority={false}
 							/>
 						</div>
-					) : (
-						<div className="w-14 h-14 flex-shrink-0 rounded-md overflow-hidden grid place-items-center">
-							<SiSpotify className="text-2xl text-[#1DB954]" aria-hidden />
+					:	<div className="w-14 h-14 flex-shrink-0 rounded-md overflow-hidden grid place-items-center">
+							<SiSpotify
+								className="text-2xl text-[#1DB954]"
+								aria-hidden
+							/>
 						</div>
-					)}
+					}
 
 					{/* Song info */}
 					<div className="flex-1 min-w-0">
 						<div className="flex items-center gap-2 mb-1">
 							<SiSpotify className="text-base text-[#1DB954] flex-shrink-0" />
 							<span className="text-xs text-zinc-600 dark:text-zinc-400">
-								{data.isPlaying ? (
+								{data.isPlaying ?
 									<span className="flex items-center gap-2">
 										<span>Now Playing</span>
 										<span className="relative flex h-2 w-2">
@@ -79,14 +82,12 @@ export default function NowPlayingClient({ initialData }: Props) {
 											<span className="relative inline-flex rounded-full h-2 w-2 bg-[#1DB954]" />
 										</span>
 									</span>
-								) : (
-									'Last played'
-								)}
+								:	'Last played'}
 							</span>
 						</div>
 
 						{/* Title (link if available) */}
-						{data.songUrl ? (
+						{data.songUrl ?
 							<a
 								href={data.songUrl}
 								target="_blank"
@@ -94,11 +95,10 @@ export default function NowPlayingClient({ initialData }: Props) {
 								className="block font-medium text-sm text-zinc-900 dark:text-white truncate hover:underline">
 								{data.title || 'Unknown Track'}
 							</a>
-						) : (
-							<h3 className="font-medium text-sm text-zinc-900 dark:text-white truncate">
+						:	<h3 className="font-medium text-sm text-zinc-900 dark:text-white truncate">
 								{data.title || 'Unknown Track'}
 							</h3>
-						)}
+						}
 
 						<p className="text-xs text-zinc-600 dark:text-zinc-400 truncate">
 							by {data.artist || 'Unknown Artist'}

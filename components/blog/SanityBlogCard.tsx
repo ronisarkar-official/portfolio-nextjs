@@ -22,10 +22,10 @@ const SanityBlogCard: React.FC<SanityBlogCardProps> = ({ post }) => {
 		<Link
 			key={post._id}
 			href={`/blog/${post.slug}`}
-			className="block p-4 border rounded-lg"
+			className="p-4 border rounded-lg min-h-80 max-h-80 flex flex-col overflow-hidden"
 			aria-label={`Read post: ${post.title}`}>
 			{post.mainImage?.url ? (
-				<div className="relative border rounded-lg overflow-hidden mb-2 h-48">
+				<div className="relative border rounded-lg overflow-hidden mb-2 h-48 flex-shrink-0">
 					<Image
 						src={post.mainImage.url}
 						alt={post.mainImage.alt || post.title}
@@ -36,14 +36,14 @@ const SanityBlogCard: React.FC<SanityBlogCardProps> = ({ post }) => {
 					/>
 				</div>
 			) : (
-				<div className="w-full h-48 rounded-lg mb-2 bg-black/5 dark:bg-white/5 flex items-center justify-center text-sm">
+				<div className="w-full h-48 rounded-lg mb-2 bg-black/5 dark:bg-white/5 flex items-center justify-center text-sm flex-shrink-0">
 					No image
 				</div>
 			)}
 
-			<h2 className="text-xl font-bold mb-2">{post.title}</h2>
+			<h2 className="text-xl font-bold mb-2 line-clamp-2">{post.title}</h2>
 
-			<div className="flex items-center gap-1 text-sm text-muted-foreground mb-2">
+			<div className="flex items-center gap-1 text-sm text-muted-foreground mt-auto">
 				<ViewCounter
 					slug={post.slug}
 					initialViews={post.views}

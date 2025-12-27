@@ -201,12 +201,10 @@ export default async function Home() {
 						text="view more"
 					/>
 				</div>
-				<div className="grid gap-4 md:grid-cols-2">
+				<div className="grid gap-4 md:grid-cols-2 items-stretch">
 					{posts.map((post) => (
-						<SpringAnimated key={post._id} hoverScale={1.02}>
-							<SanityBlogCard
-								post={post}
-							/>
+						<SpringAnimated key={post._id} hoverScale={1.02} className="h-full">
+							<SanityBlogCard post={post} />
 						</SpringAnimated>
 					))}
 				</div>

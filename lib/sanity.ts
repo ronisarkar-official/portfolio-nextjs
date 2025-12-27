@@ -59,7 +59,7 @@ export async function getAllSanityPosts(): Promise<PostCard[]> {
   }`
 
   try {
-    const posts = await client.fetch(query)
+    const posts = await client.fetch(query, {}, { next: { revalidate: 0 } })
     return posts
   } catch (error) {
     console.error('Error fetching posts:', error)
@@ -215,7 +215,7 @@ export async function getAllCategories() {
   }`
 
   try {
-    const categories = await client.fetch(query)
+    const categories = await client.fetch(query, {}, { next: { revalidate: 0 } })
     return categories
   } catch (error) {
     console.error('Error fetching categories:', error)

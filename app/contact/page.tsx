@@ -200,7 +200,7 @@ export default function Contact() {
 							type="submit"
 							disabled={loading}
 							className={`w-full flex items-center justify-center gap-2 px-4 py-2 font-medium rounded-lg transition-transform duration-150  disabled:opacity-60 disabled:cursor-not-allowed active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 ${
-								loading ? ' text-white' : ' hover:bg-gray-900 border text-white'
+								loading ? ' text-white' : ' hover:bg-gray-900 border dark:text-white text-black'
 							}`}
 							aria-busy={loading}
 							aria-live="polite">
