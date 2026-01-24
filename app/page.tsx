@@ -26,6 +26,7 @@ import { Metadata } from 'next';
 import NowPlaying from '@/components/NowPlaying';
 import ContributionGraph from '@/components/contribution-graph';
 import { QuoteBlock } from '@/components/QuoteBlock';
+import VisitorCounter from '@/components/VisitorCounter';
 
 import SpringAnimated from '@/components/SpringAnimated';
 
@@ -209,6 +210,9 @@ export default async function Home() {
 					))}
 				</div>
 				<QuoteBlock />
+				<div className="flex justify-center mt-6">
+					<VisitorCounter />
+				</div>
 			</section>
 		</article>
 	);
