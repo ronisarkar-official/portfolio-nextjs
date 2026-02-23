@@ -1,6 +1,8 @@
 import BlogSearch from '@/components/blog/BlogSearch';
 import { getAllSanityPosts, getAllCategories } from '@/lib/sanity';
 
+export const revalidate = 60;
+
 export default async function BlogPage() {
 	// Fetch data server-side in parallel for optimal performance
 	const [posts, categories] = await Promise.all([

@@ -182,6 +182,7 @@ export default async function Home() {
 						position="right"
 						icon={<ArrowRightIcon className="size-5" />}
 						text="view more"
+						className="hover:underline underline-offset-4"
 					/>
 				</div>
 				<Projects limit={LIMIT} />
@@ -200,6 +201,7 @@ export default async function Home() {
 						position="right"
 						icon={<ArrowRightIcon className="size-5" />}
 						text="view more"
+						className="hover:underline underline-offset-4"
 					/>
 				</div>
 				<div className="grid gap-4 md:grid-cols-2 items-stretch">

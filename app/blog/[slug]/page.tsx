@@ -1,13 +1,15 @@
 import { getSanityPostBySlug, getAllPostSlugs, calculateReadingTime, urlFor } from '@/lib/sanity';
 import ViewCounter from '@/components/blog/ViewCounter';
+import BackButton from '@/components/blog/BackButton';
 import { PortableText } from '@portabletext/react';
 import { portableTextComponents } from '@/components/blog/PortableTextComponents';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { CalendarIcon, ClockIcon, ArrowLeftIcon } from 'lucide-react';
+import { CalendarIcon, ClockIcon, ArrowLeftIcon, CalendarDaysIcon } from 'lucide-react';
 import Link from 'next/link';
 import { formatDate, formatRelativeTime } from '@/lib/utils';
 import type { Metadata } from 'next';
+import ShareButton from '@/components/blog/ShareButton';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -21,7 +23,7 @@ interface BlogPostPageProps {
   params: Promise<{ slug: string }>
 }
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 // Generate static paths for all posts
 export async function generateStaticParams() {
@@ -143,8 +145,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </BreadcrumbList>
         </Breadcrumb>
       </nav>
-
+   
       <article className="mx-auto max-w-4xl px-4">
+        {/* Back Button */}
+        <BackButton />
+
         {/* Hero Image */}
         {post.mainImage?.asset && (
           <div className="relative mb-8 aspect-video w-full overflow-hidden rounded-lg border">
@@ -215,9 +220,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <div className="flex items-center gap-1 text-sm text-muted-foreground">
                 <ViewCounter slug={post.slug.current} initialViews={post.views} />
                 <span>•</span>
+                <CalendarDaysIcon className="h-3.5 w-3.5" />
                 <time dateTime={post.publishedAt}>
                   {formatRelativeTime(post.publishedAt)}
                 </time>
+              </div>
+
+              <div className="ml-auto flex items-center">
+                <ShareButton title={post.title} slug={post.slug.current} />
               </div>
             </div>
           </div>
