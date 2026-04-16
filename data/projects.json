@@ -1,6 +1,24 @@
 {
 	"projects": [
 		{
+			"name": "Doodl",
+			"description": "A real-time multiplayer drawing and guessing game where one player draws and others guess what they're drawing. Built with NextJs, TailwindCSS, and Socket.io.",
+			"image": "https://ik.imagekit.io/2zeqzsn1n/doodl-project.webp?q-auto",
+			"tags": ["NextJS", "TailwindCSS", "Socket.io", "Real-time"],
+			"links": [
+				{
+					"name": "Website",
+					"href": "https://doodl.onrender.com",
+					"icon": "globe"
+				},
+				{
+					"name": "Source",
+					"href": "https://github.com/ronisarkar-official/doodl",
+					"icon": "github"
+				}
+			]
+		},
+		{
 			"name": "NextJs Blog App",
 			"description": "A blog app built with NextJs, TailwindCSS, and PostgreSQL. It features user authentication, a rich text editor, and a comment system.",
 			"image": "https://ik.imagekit.io/2zeqzsn1n/nextjs-blog-project.webp?q-auto",

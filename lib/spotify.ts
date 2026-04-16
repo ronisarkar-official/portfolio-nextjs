@@ -13,6 +13,10 @@ const client_id = process.env.SPOTIFY_CLIENT_ID;
 const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 const refresh_token = process.env.SPOTIFY_REFRESH_TOKEN;
 
+// Last.fm configuration
+const lastfm_api_key = process.env.LASTFM_API_KEY;
+const lastfm_username = process.env.LASTFM_USERNAME;
+
 const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 const TOKEN_ENDPOINT = 'https://accounts.spotify.com/api/token';
 const NOW_PLAYING_ENDPOINT =
@@ -87,6 +91,56 @@ async function getRecentlyPlayed(
 	return null;
 }
 
+async function getLastFmData(): Promise<SpotifyData | null> {
+	if (!lastfm_api_key || !lastfm_username) {
+		console.log('[Last.fm] API key or username not configured');
+		return null;
+	}
+
+	try {
+		const response = await fetch(
+			`https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${lastfm_username}&api_key=${lastfm_api_key}&format=json&limit=1`,
+			{ cache: 'no-store' },
+		);
+
+		if (response.ok) {
+			const data = await response.json();
+			const tracks = data.recenttracks?.track;
+			if (tracks && tracks.length > 0) {
+				const track = tracks[0];
+				const isPlaying = track['@attr']?.nowplaying === 'true';
+
+				// Get album image from Last.fm if available
+				let albumImageUrl: string | undefined;
+				if (track.image && track.image.length > 0) {
+					// Use the largest image available
+					const images = track.image.filter((img: any) => img['#text']);
+					if (images.length > 0) {
+						albumImageUrl = images[images.length - 1]['#text'];
+					}
+				}
+
+				console.log(
+					`[Last.fm] ${isPlaying ? 'Now playing' : 'Last played'}: "${track.name}" by ${track.artist['#text']}`,
+				);
+
+				return {
+					isPlaying,
+					title: track.name,
+					artist: track.artist['#text'],
+					album: track.album['#text'] || undefined,
+					albumImageUrl,
+					songUrl: `https://www.last.fm/music/${encodeURIComponent(track.artist['#text'])}/_/${encodeURIComponent(track.name)}`,
+				};
+			}
+		}
+	} catch (error) {
+		console.error('[Last.fm] Error fetching data:', error);
+	}
+
+	return null;
+}
+
 /**
  * Default state to show when no music is available
  */
@@ -100,13 +154,21 @@ const DEFAULT_STATE: SpotifyData = {
 };
 
 /**
- * Fetches current Spotify playing data without caching.
+ * Fetches current music playing data without caching.
+ * Tries Last.fm first for real-time data, then falls back to Spotify.
  * Use this for real-time updates (API routes, client polling).
  */
 export async function getSpotifyData(): Promise<SpotifyData> {
-	// Return default state if credentials not configured
+	// Try Last.fm first for real-time data
+	const lastFmData = await getLastFmData();
+	if (lastFmData) {
+		console.log('[Last.fm] Using Last.fm data');
+		return lastFmData;
+	}
+
+	// Fall back to Spotify if Last.fm not available
 	if (!client_id || !client_secret || !refresh_token) {
-		console.log('[Spotify] Credentials not configured');
+		console.log('[Spotify] Credentials not configured, and Last.fm failed');
 		return DEFAULT_STATE;
 	}
 
@@ -138,7 +200,10 @@ export async function getSpotifyData(): Promise<SpotifyData> {
 		if (!song.item) {
 			const recentlyPlayed = await getRecentlyPlayed(access_token);
 			if (recentlyPlayed) {
-				console.log('[Spotify] Recently played (no item):', recentlyPlayed.title);
+				console.log(
+					'[Spotify] Recently played (no item):',
+					recentlyPlayed.title,
+				);
 				return recentlyPlayed;
 			}
 			console.log('[Spotify] No item in current playing');
