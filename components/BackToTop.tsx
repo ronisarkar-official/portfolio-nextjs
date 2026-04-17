@@ -16,7 +16,7 @@ type BackToTopProps = {
 
 export default function BackToTop({
 	showAfter = 300,
-	size = 44,
+	size = 35,
 	className = '',
 	ariaLabel = 'Back to top',
 }: BackToTopProps) {
@@ -95,7 +95,7 @@ export default function BackToTop({
 					width: size,
 					height: size,
 				}}
-				className={`pointer-events-auto flex items-center justify-center rounded-full shadow-lg transition-all duration-300 transform focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900 focus-visible:ring-indigo-500
+				className={`pointer-events-auto flex items-center justify-center rounded-md shadow-lg transition-all duration-300 transform focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900 focus-visible:ring-indigo-500
           ${
 						visible ?
 							'opacity-100 translate-y-0 scale-100'

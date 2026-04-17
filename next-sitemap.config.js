@@ -1,7 +1,10 @@
+const siteUrl =
+	process.env.NEXT_PUBLIC_BASE_URL || 'https://roni-sarkar.vercel.app';
+
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-	siteUrl: 'https://ronisarkar.spechype.com',
-	generateRobotsTxt: true,
+	siteUrl,
+	generateRobotsTxt: false,
 	changefreq: 'weekly',
 	priority: 0.7,
 	sitemapSize: 5000,
@@ -14,6 +17,6 @@ module.exports = {
 				disallow: ['/studio', '/api'],
 			},
 		],
-		additionalSitemaps: ['https://ronisarkar.spechype.com/sitemap.xml'],
+		additionalSitemaps: [`${siteUrl}/sitemap.xml`],
 	},
 };

@@ -18,7 +18,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 // Make sure this is the canonical domain you control. Change if needed.
-const BASE_URL = 'https://ronisarkar.spechype.com';
+const BASE_URL =
+	process.env.NEXT_PUBLIC_BASE_URL || 'https://roni-sarkar.vercel.app';
 
 export const metadata: Metadata = {
 	title: {
@@ -176,64 +177,96 @@ export default function RootLayout({
 			lang="en"
 			suppressHydrationWarning>
 			<head>
-			{/* Essential meta tags */}
-			<meta charSet="utf-8" />
-			<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-			<meta
-				name="viewport"
-				content="width=device-width, initial-scale=1, shrink-to-fit=no"
-			/>
+				{/* Essential meta tags */}
+				<meta charSet="utf-8" />
+				<meta
+					httpEquiv="X-UA-Compatible"
+					content="IE=edge"
+				/>
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1, shrink-to-fit=no"
+				/>
+				<meta
+					name="google-site-verification"
+					content="h-sOGh3RDTQVIFlEQzlnvqZ7OOPT0bxEQxFnY9W_L5s"
+				/>
+				{/* Theme color for mobile browsers */}
+				<meta
+					name="theme-color"
+					content="#000000"
+					media="(prefers-color-scheme: dark)"
+				/>
+				<meta
+					name="theme-color"
+					content="#ffffff"
+					media="(prefers-color-scheme: light)"
+				/>
 
-			{/* Theme color for mobile browsers */}
-			<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
-			<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-			
-			{/* Disable automatic detection and formatting of phone numbers */}
-			<meta name="format-detection" content="telephone=no" />
-			
-			{/* Geo tags - update with your actual location */}
-			<meta name="geo.region" content="IN" />
-			<meta name="geo.placename" content="India" />
-			
-			{/* Referrer policy */}
-			<meta name="referrer" content="origin-when-cross-origin" />
+				{/* Disable automatic detection and formatting of phone numbers */}
+				<meta
+					name="format-detection"
+					content="telephone=no"
+				/>
 
-			{/* Preconnect to external domains */}
-			<link
-				rel="preconnect"
-				href="https://fonts.gstatic.com"
-				crossOrigin="anonymous"
-			/>
-			<link
-				rel="preconnect"
-				href="https://ik.imagekit.io"
-				crossOrigin="anonymous"
-			/>
-			<link
-				rel="dns-prefetch"
-				href="https://fonts.gstatic.com"
-			/>
+				{/* Geo tags - update with your actual location */}
+				<meta
+					name="geo.region"
+					content="IN"
+				/>
+				<meta
+					name="geo.placename"
+					content="India"
+				/>
 
-			{/* Canonical (also provided via metadata) */}
-			<link
-				rel="canonical"
-				href={BASE_URL}
-			/>
+				{/* Referrer policy */}
+				<meta
+					name="referrer"
+					content="origin-when-cross-origin"
+				/>
 
-			{/* Meta tags that some crawlers still expect */}
-			<meta
-				name="keywords"
-				content={
-					Array.isArray(metadata.keywords)
-						? metadata.keywords.join(', ')
-						: metadata.keywords ?? ''
-				}
-			/>
-			
-			{/* Author and copyright */}
-			<meta name="author" content="Roni Sarkar" />
-			<meta name="copyright" content="Roni Sarkar" />
-		</head>
+				{/* Preconnect to external domains */}
+				<link
+					rel="preconnect"
+					href="https://fonts.gstatic.com"
+					crossOrigin="anonymous"
+				/>
+				<link
+					rel="preconnect"
+					href="https://ik.imagekit.io"
+					crossOrigin="anonymous"
+				/>
+				<link
+					rel="dns-prefetch"
+					href="https://fonts.gstatic.com"
+				/>
+
+				{/* Canonical (also provided via metadata) */}
+				<link
+					rel="canonical"
+					href={BASE_URL}
+				/>
+
+				{/* Meta tags that some crawlers still expect */}
+				<meta
+					name="keywords"
+					content={
+						Array.isArray(metadata.keywords) ?
+							metadata.keywords.join(', ')
+						:	(metadata.keywords ?? '')
+					}
+				/>
+
+				{/* Author and copyright */}
+				<meta
+					name="author"
+					content="Roni Sarkar"
+				/>
+				<meta
+					name="copyright"
+					content="Roni Sarkar"
+				/>
+			</head>
 			<body
 				className={`${jetbrainsMono.variable} antialiased overflow-x-hidden selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black`}>
 				<ThemeProvider
