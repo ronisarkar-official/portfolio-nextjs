@@ -2,7 +2,8 @@ import { getAllSanityPosts } from '@/lib/sanity';
 
 export async function GET() {
 	const posts = await getAllSanityPosts();
-	const siteUrl = 'https://ronisarkar.spechype.com';
+	const siteUrl =
+		process.env.NEXT_PUBLIC_BASE_URL || 'https://roni-sarkar.vercel.app';
 
 	const rssItems = posts
 		.map((post) => {

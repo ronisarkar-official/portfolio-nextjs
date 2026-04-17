@@ -2,7 +2,8 @@ import { MetadataRoute } from 'next';
 import { getAllPostSlugs } from '@/lib/sanity';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-	const baseUrl = 'https://ronisarkar.spechype.com';
+	const baseUrl =
+		process.env.NEXT_PUBLIC_BASE_URL || 'https://roni-sarkar.vercel.app';
 
 	// Fetch all blog post slugs from Sanity
 	const blogSlugs = await getAllPostSlugs();
