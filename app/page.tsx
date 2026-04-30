@@ -188,6 +188,7 @@ export default async function Home() {
 				<Projects limit={LIMIT} />
 			</section>
 			<About />
+			
 			<TechStack />
 			<ContributionGraph />
 			<Experience />

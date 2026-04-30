@@ -210,9 +210,9 @@ function TabsContents({
 
   const containerRef = React.useRef<HTMLDivElement | null>(null);
   const itemRefs = React.useRef<Array<HTMLDivElement | null>>([]);
-  const [height, setHeight] = React.useState(0);
+  const [height, setHeight] = React.useState<number | null>(null);
   const roRef = React.useRef<ResizeObserver | null>(null);
-  const isInitialRender = React.useRef(true);
+  const [ready, setReady] = React.useState(false);
 
   const measure = React.useCallback((index: number) => {
     const pane = itemRefs.current[index];
@@ -239,6 +239,7 @@ function TabsContents({
     return total;
   }, []);
 
+  // Main measurement effect — runs on every tab change
   React.useEffect(() => {
     if (roRef.current) {
       roRef.current.disconnect();
@@ -249,11 +250,18 @@ function TabsContents({
     const container = containerRef.current;
     if (!pane || !container) return;
 
-    setHeight(measure(activeIndex));
+    const measured = measure(activeIndex);
+    if (measured > 0) {
+      setHeight(measured);
+      // Mark as ready after first successful measurement
+      if (!ready) {
+        requestAnimationFrame(() => setReady(true));
+      }
+    }
 
     const ro = new ResizeObserver(() => {
       const next = measure(activeIndex);
-      requestAnimationFrame(() => setHeight(next));
+      if (next > 0) requestAnimationFrame(() => setHeight(next));
     });
 
     ro.observe(pane);
@@ -264,24 +272,24 @@ function TabsContents({
       ro.disconnect();
       roRef.current = null;
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeIndex, childrenArray.length, measure]);
 
+  // Eagerly try to measure in layout phase (before paint)
   React.useLayoutEffect(() => {
-    if (height === 0 && activeIndex >= 0) {
+    if (height === null && activeIndex >= 0) {
       const next = measure(activeIndex);
-      if (next !== 0) setHeight(next);
+      if (next > 0) {
+        setHeight(next);
+        setReady(true);
+      }
     }
   }, [activeIndex, height, measure]);
 
-  // Mark initial render as done after first measurement settles
-  React.useEffect(() => {
-    if (isInitialRender.current && height > 0) {
-      // Use a microtask to ensure the initial height is committed before enabling animations
-      requestAnimationFrame(() => {
-        isInitialRender.current = false;
-      });
-    }
-  }, [height]);
+  // Phase 1: Before we have a measurement, render a plain div
+  // with no height constraint so content is never clipped.
+  // Phase 2: Once measured, render the animated motion.div.
+  const hasValidHeight = height !== null && height > 0;
 
   return (
     <motion.div
@@ -289,15 +297,15 @@ function TabsContents({
       data-slot="tabs-contents"
       style={{ overflow: 'hidden' }}
       initial={false}
-      animate={{ height }}
-      transition={isInitialRender.current ? { duration: 0 } : transition}
+      animate={{ height: hasValidHeight ? height : 'auto' }}
+      transition={!ready ? { duration: 0 } : transition}
       {...props}
     >
       <motion.div
         className="flex -mx-2"
         initial={false}
         animate={{ x: activeIndex * -100 + '%' }}
-        transition={isInitialRender.current ? { duration: 0 } : transition}
+        transition={!ready ? { duration: 0 } : transition}
       >
         {childrenArray.map((child, index) => (
           <div

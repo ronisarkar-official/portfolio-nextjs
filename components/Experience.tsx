@@ -35,7 +35,7 @@ export default function Experience() {
 			<Tabs
 				defaultValue="career"
 				className="w-full">
-				<TabsList className="w-full grid grid-cols-2 gap-2 mb-2">
+				<TabsList className="w-full grid grid-cols-2 gap-2">
 					<TabsTrigger value="career">Career</TabsTrigger>
 					<TabsTrigger value="education">Education</TabsTrigger>
 				</TabsList>
