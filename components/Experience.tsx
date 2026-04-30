@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import dynamic from 'next/dynamic';
 import {
 	Tabs,
 	TabsContent,
@@ -9,16 +8,10 @@ import {
 	TabsList,
 	TabsTrigger,
 } from '@/components/animate-ui/components/animate/tabs';
-import { Card } from '@/components/ui/Card';
+import Timeline from '@/components/Timeline';
 import careerData from '@/data/career.json';
 import educationData from '@/data/education.json';
 import { careerSchema, educationSchema } from '@/lib/schemas';
-
-// Lazy-load Timeline to reduce initial bundle size. Disable SSR if Timeline depends on browser APIs.
-const Timeline = dynamic(() => import('@/components/Timeline'), {
-	ssr: false,
-	loading: () => <div className="py-6">Loading timeline…</div>,
-});
 
 export default function Experience() {
 	// Parse once — memoize so Zod doesn't re-validate on every render

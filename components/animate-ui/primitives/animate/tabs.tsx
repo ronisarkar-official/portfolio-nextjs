@@ -212,6 +212,7 @@ function TabsContents({
   const itemRefs = React.useRef<Array<HTMLDivElement | null>>([]);
   const [height, setHeight] = React.useState(0);
   const roRef = React.useRef<ResizeObserver | null>(null);
+  const isInitialRender = React.useRef(true);
 
   const measure = React.useCallback((index: number) => {
     const pane = itemRefs.current[index];
@@ -272,19 +273,31 @@ function TabsContents({
     }
   }, [activeIndex, height, measure]);
 
+  // Mark initial render as done after first measurement settles
+  React.useEffect(() => {
+    if (isInitialRender.current && height > 0) {
+      // Use a microtask to ensure the initial height is committed before enabling animations
+      requestAnimationFrame(() => {
+        isInitialRender.current = false;
+      });
+    }
+  }, [height]);
+
   return (
     <motion.div
       ref={containerRef}
       data-slot="tabs-contents"
       style={{ overflow: 'hidden' }}
+      initial={false}
       animate={{ height }}
-      transition={transition}
+      transition={isInitialRender.current ? { duration: 0 } : transition}
       {...props}
     >
       <motion.div
         className="flex -mx-2"
+        initial={false}
         animate={{ x: activeIndex * -100 + '%' }}
-        transition={transition}
+        transition={isInitialRender.current ? { duration: 0 } : transition}
       >
         {childrenArray.map((child, index) => (
           <div
@@ -326,9 +339,8 @@ function TabsContent({
       data-slot="tabs-content"
       inert={!isActive}
       style={{ overflow: 'hidden', ...style }}
-      initial={{ filter: 'blur(0px)' }}
+      initial={false}
       animate={{ filter: isActive ? 'blur(0px)' : 'blur(4px)' }}
-      exit={{ filter: 'blur(0px)' }}
       transition={{ type: 'spring', stiffness: 200, damping: 25 }}
       {...props}
     />

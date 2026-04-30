@@ -58,7 +58,7 @@ export default async function Home() {
 
 	// Contact information from Sanity or fallback to defaults
 	const email = settings?.email || 'ronisarkar10938@gmail.com';
-	const websiteUrl = settings?.websiteUrl || 'https://ronisarkar.spechype.com';
+	const websiteUrl = settings?.websiteUrl || 'https://roni-sarkar.vercel.app';
 
 	return (
 		<article className="mt-8 flex flex-col gap-6 pb-16 ">
