@@ -1,6 +1,29 @@
 {
 	"projects": [
 		{
+			"name": "Read X",
+			"description": "🏆 **Hackathon Project** — An AI-powered OCR platform that extracts, digitizes, and translates handwritten and printed text from manuscripts, archives, and documents across 20+ Indian languages using Google Gemini AI.",
+			"image": "https://ik.imagekit.io/2zeqzsn1n/readx.webp?q-auto",
+			"tags": ["NextJS", "TailwindCSS", "Supabase", "NextAuth", "ImageKit"],
+			"links": [
+				{
+					"name": "Website",
+					"href": "https://readx-six.vercel.app",
+					"icon": "globe"
+				},
+				{
+					"name": "Source",
+					"href": "https://github.com/ronisarkar-official/readx",
+					"icon": "github"
+				},
+				{
+					"name": "Hackathon",
+					"href": "https://readx-six.vercel.app/",
+					"icon": "award"
+				}
+			]
+		},
+		{
 			"name": "Doodl",
 			"description": "A real-time multiplayer drawing and guessing game where one player draws and others guess what they're drawing. Built with NextJs, TailwindCSS, and Socket.io.",
 			"image": "https://ik.imagekit.io/2zeqzsn1n/doodl-project.webp?q-auto",
