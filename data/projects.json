@@ -49,7 +49,7 @@
 			"links": [
 				{
 					"name": "Website",
-					"href": "https://www.spechype.com",
+					"href": "https://spechype.vercel.app",
 					"icon": "globe"
 				},
 				{
@@ -67,7 +67,7 @@
 			"links": [
 				{
 					"name": "Website",
-					"href": "https://pixivo.spechype.com",
+					"href": "https://pixivo.vercel.app",
 					"icon": "globe"
 				},
 				{
@@ -108,7 +108,7 @@
 			"links": [
 				{
 					"name": "Website",
-					"href": "https://old-portfolio.spechype.com",
+					"href": "https://old-portfolio-roni.vercel.app",
 					"icon": "globe"
 				},
 				{
