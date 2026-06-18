@@ -19,7 +19,8 @@ import Projects from '@/components/Projects';
 import LinkWithIcon from '@/components/LinkWithIcon';
 import About from '@/components/About';
 import Experience from '@/components/Experience';
-import { getAllSanityPosts, getSiteSettings } from '@/lib/sanity';
+import Achievements from '@/components/Certifications';
+import { getAllSanityPosts, getSiteSettings, getAwards } from '@/lib/sanity';
 import SanityBlogCard from '@/components/blog/SanityBlogCard';
 import { ImageSwiper } from '@/components/image-swiper';
 import { Metadata } from 'next';
@@ -44,6 +45,7 @@ export const metadata: Metadata = {
 export default async function Home() {
 	const posts = (await getAllSanityPosts()).slice(0, LIMIT);
 	const settings = await getSiteSettings();
+	const awards = await getAwards();
 	const resumeUrl = settings?.resumeUrl || 'https://drive.google.com/file/d/1LUALqh7wvyjfcw2xyT4ofS5aQALpxD6l/view';
 	
 	// Use hero images from Sanity or fallback to default
@@ -191,7 +193,9 @@ export default async function Home() {
 			
 			<TechStack />
 			<ContributionGraph />
+			
 			<Experience />
+			<Achievements awards={awards} />
 			<section className="flex flex-col gap-8">
 				<div className="flex justify-between">
 					<h2 className="title text-3xl font-semibold text-foreground">

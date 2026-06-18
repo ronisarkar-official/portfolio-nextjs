@@ -94,17 +94,21 @@ const portableTextComponents = {
 	},
 };
 
+import { cn } from '@/lib/utils';
+
 interface PortableTextContentProps {
 	content: PortableTextBlock[] | PortableTextBlock | null | undefined;
+	className?: string;
 }
 
 export default function PortableTextContent({
 	content,
+	className,
 }: PortableTextContentProps) {
 	if (!content) return null;
 
 	return (
-		<div className="prose prose-lg max-w-none dark:prose-invert">
+		<div className={cn("prose prose-lg max-w-none dark:prose-invert", className)}>
 			<PortableText
 				value={content}
 				components={portableTextComponents as any}
@@ -112,3 +116,4 @@ export default function PortableTextContent({
 		</div>
 	);
 }
+

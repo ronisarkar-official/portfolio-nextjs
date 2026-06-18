@@ -250,3 +250,40 @@ export async function getSiteSettings() {
 }
 
 export { calculateReadingTime }
+
+// Award/Certification type
+export interface Award {
+  _id: string
+  title: string
+  prize: string
+  grade: string
+  date: string
+  description?: any[]
+  referenceLink?: string
+  icon?: string
+}
+
+/**
+ * Fetch all awards/certifications ordered by display order, then date
+ */
+export async function getAwards(): Promise<Award[]> {
+  const query = `*[_type == "certification"] | order(order asc, date desc) {
+    _id,
+    title,
+    prize,
+    grade,
+    date,
+    description,
+    referenceLink,
+    icon
+  }`
+
+  try {
+    const awards = await client.fetch(query, {}, { next: { revalidate: 60 } })
+    return awards
+  } catch (error) {
+    console.error('Error fetching awards:', error)
+    return []
+  }
+}
+

@@ -12,8 +12,11 @@ export default function StudioPage() {
 		const originalError = console.error;
 		console.error = (...args) => {
 			if (
-				typeof args[0] === 'string' &&
-				args[0].includes('disableTransition')
+				args.some(
+					(arg) =>
+						typeof arg === 'string' &&
+						arg.includes('disableTransition')
+				)
 			) {
 				return;
 			}

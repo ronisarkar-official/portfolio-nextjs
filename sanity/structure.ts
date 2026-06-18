@@ -1,5 +1,5 @@
 import type {StructureResolver} from 'sanity/structure'
-import { Cog } from 'lucide-react'
+import { Award, Cog } from 'lucide-react'
 
 // https://www.sanity.io/docs/structure-builder-cheat-sheet
 export const structure: StructureResolver = (S) =>
@@ -16,8 +16,18 @@ export const structure: StructureResolver = (S) =>
             .documentId('settings')
         ),
       S.divider(),
+      // Certifications
+      S.listItem()
+        .title('Certifications')
+        .icon(Award)
+        .child(
+          S.documentTypeList('certification')
+            .title('Certifications')
+        ),
+      S.divider(),
       // All other document types
       ...S.documentTypeListItems().filter(
-        (listItem) => !['settings'].includes(listItem.getId() || '')
+        (listItem) => !['settings', 'certification'].includes(listItem.getId() || '')
       ),
     ])
+
