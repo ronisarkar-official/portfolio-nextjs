@@ -8,7 +8,7 @@ module.exports = {
 	changefreq: 'weekly',
 	priority: 0.7,
 	sitemapSize: 5000,
-	exclude: ['/studio', '/studio/*', '/api/*'],
+	exclude: ['/studio', '/studio/*', '/api/*', '/robots.txt', '/sitemap.xml', '/sitemap-*.xml'],
 	robotsTxtOptions: {
 		policies: [
 			{
@@ -17,6 +17,5 @@ module.exports = {
 				disallow: ['/studio', '/api'],
 			},
 		],
-		additionalSitemaps: [`${siteUrl}/sitemap.xml`],
 	},
 };

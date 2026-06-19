@@ -80,7 +80,6 @@ export default function BackToTop({
 
 	return (
 		<div
-			aria-hidden={!visible}
 			// keep DOM node for layout stability — we control visibility via opacity/transform
 			className={`pointer-events-none fixed bottom-6 right-6 z-50 ${className}`}>
 			<button

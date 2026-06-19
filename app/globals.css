@@ -228,3 +228,25 @@ code {
 		opacity: 1;
 	}
 }
+
+/* Lightweight page transition — replaces framer-motion template wrapper */
+@keyframes page-enter-anim {
+	from {
+		opacity: 0;
+		transform: translateX(calc(20px * var(--page-dir, 1)));
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+.page-enter {
+	animation: page-enter-anim 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.page-enter {
+		animation: none;
+	}
+}

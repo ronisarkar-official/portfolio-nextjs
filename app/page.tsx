@@ -26,10 +26,8 @@ import { ImageSwiper } from '@/components/image-swiper';
 import { Metadata } from 'next';
 import NowPlaying from '@/components/NowPlaying';
 import ContributionGraph from '@/components/contribution-graph';
-import { QuoteBlock } from '@/components/QuoteBlock';
-import VisitorCounter from '@/components/VisitorCounter';
-
 import SpringAnimated from '@/components/SpringAnimated';
+import BelowFoldWidgets from '@/components/BelowFoldWidgets';
 
 const LIMIT = 2; // max show 2
 
@@ -37,7 +35,7 @@ const LIMIT = 2; // max show 2
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-	title: 'Home',
+	title: 'Roni Sarkar — Software Engineer & Web Developer',
 	description:
 		'Roni Sarkar - Full-Stack Developer specializing in Next.js, React, and modern web technologies. View my portfolio, projects, and blog posts.',
 };
@@ -216,11 +214,8 @@ export default async function Home() {
 						</SpringAnimated>
 					))}
 				</div>
-				<QuoteBlock />
-				<div className="flex justify-center mt-6">
-					<VisitorCounter />
-				</div>
 			</section>
+			<BelowFoldWidgets />
 		</article>
 	);
 }

@@ -126,9 +126,9 @@ export default async function ContributionGraph({
 			{/* Header with Total Contributions */}
 			<div className="flex items-center justify-between mb-4 px-6 md:px-0">
 				<div className="flex flex-col">
-					<span className="text-3xl font-semibold text-foreground">
+					<h2 className="text-3xl font-semibold text-foreground">
 						GitHub Activity
-					</span>
+					</h2>
 					<span className="text-md text-muted-foreground">
 						Total: {totalContributions} contributions
 					</span>

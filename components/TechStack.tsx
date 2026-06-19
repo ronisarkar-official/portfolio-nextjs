@@ -38,6 +38,7 @@ export default function TechStack() {
                               width={32}
                               height={32}
                               className="hidden [html.light_&]:block"
+                              loading="lazy"
                               unoptimized
                             />
                             <Image
@@ -46,6 +47,7 @@ export default function TechStack() {
                               width={32}
                               height={32}
                               className="hidden [html.dark_&]:block"
+                              loading="lazy"
                               unoptimized
                             />
                           </>
@@ -55,6 +57,7 @@ export default function TechStack() {
                             alt={`${tech.title} icon`}
                             width={32}
                             height={32}
+                            loading="lazy"
                             unoptimized
                           />
                         )}

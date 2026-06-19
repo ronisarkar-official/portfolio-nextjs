@@ -18,60 +18,43 @@ export default function ThemeToggle() {
 	// Fallback HTMLAudioElement (preloaded)
 	const audioElRef = useRef<HTMLAudioElement | null>(null);
 
+	// Track whether audio has been initialized
+	const audioInitialized = useRef(false);
+
 	// Path to short click sound — keep it tiny (5-40 KB if possible)
 	const AUDIO_URL = '/audio/click.wav';
 
 	useEffect(() => {
 		setMounted(true);
+	}, []);
 
-		// Create AudioContext and start preloading + decoding
+	const initAudio = async () => {
+		if (audioInitialized.current) return;
+		audioInitialized.current = true;
+
 		const Ctor =
 			(window as any).AudioContext || (window as any).webkitAudioContext;
-		let ctx: AudioContext | null = null;
-		let cancelled = false;
-
 		if (Ctor) {
 			try {
-				ctx = new Ctor();
+				const ctx = new Ctor();
 				audioCtxRef.current = ctx;
-
-				// Fetch and decode audio buffer as early as possible
-				fetch(AUDIO_URL)
-					.then((r) => r.arrayBuffer())
-					.then((arr) => ctx!.decodeAudioData(arr))
-					.then((decoded) => {
-						if (!cancelled) audioBufferRef.current = decoded;
-					})
-					.catch((err) => {
-						console.warn(
-							'WebAudio decode failed, will fallback to HTMLAudioElement',
-							err,
-						);
-					});
-			} catch (e) {
-				console.warn(
-					'AudioContext creation failed, will fallback to HTMLAudioElement',
-					e,
-				);
+				const response = await fetch(AUDIO_URL);
+				const arr = await response.arrayBuffer();
+				audioBufferRef.current = await ctx.decodeAudioData(arr);
+			} catch {
+				// Web Audio failed, will use fallback
 			}
 		}
 
-		// Prepare fallback HTMLAudioElement and preload it
+		// Prepare fallback HTMLAudioElement
 		const el = new Audio(AUDIO_URL);
 		el.preload = 'auto';
 		audioElRef.current = el;
-
-		return () => {
-			cancelled = true;
-			// Close context when unmounting (optional)
-			if (audioCtxRef.current) {
-				audioCtxRef.current.close().catch(() => {});
-				audioCtxRef.current = null;
-			}
-		};
-	}, []);
+	};
 
 	const playClick = async () => {
+		// Lazy-init audio on first interaction
+		await initAudio();
 		const ctx = audioCtxRef.current;
 		const buffer = audioBufferRef.current;
 

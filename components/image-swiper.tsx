@@ -194,7 +194,7 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = memo(({
 	}, [cardOrder, updatePositions]);
 
 	return (
-		<section
+		<div
 			className={`relative grid place-content-center select-none ${className}`}
 			ref={cardStackRef}
 			style={
@@ -211,7 +211,7 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = memo(({
 				} as React.CSSProperties
 			}>
 			{cardOrder.map((originalIndex, displayIndex) => (
-				<article
+				<div
 					key={`${imageList[originalIndex]}-${originalIndex}`}
 					className="image-card absolute cursor-grab active:cursor-grabbing
                      place-self-center border border-slate-400 rounded-xl
@@ -238,9 +238,9 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = memo(({
 						draggable={false}
 						priority={originalIndex === 0}
 					/>
-				</article>
+				</div>
 			))}
-		</section>
+		</div>
 	);
 });
 

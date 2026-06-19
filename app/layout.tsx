@@ -7,8 +7,7 @@ import Footer from '@/components/Footer';
 import { ThemeProvider } from '@/components/theme-provider';
 import BackToTop from '@/components/BackToTop';
 import { Analytics } from '@vercel/analytics/react';
-import EasterEgg from '@/components/EasterEgg';
-import CommandMenu from '@/components/CommandMenu';
+import ClientShell from '@/components/ClientShell';
 
 const jetbrainsMono = JetBrains_Mono({
 	variable: '--font-jetbrains-mono',
@@ -24,7 +23,7 @@ const BASE_URL =
 export const metadata: Metadata = {
 	title: {
 		default: 'Roni Sarkar — Software Engineer & Web Developer',
-		template: '%s',
+		template: '%s | Roni Sarkar',
 	},
 	description:
 		'Roni Sarkar — Software engineer and web developer building modern web apps with Next.js, React and Node.js. Portfolio, case studies and contact.',
@@ -180,10 +179,6 @@ export default function RootLayout({
 				{/* Essential meta tags */}
 				<meta charSet="utf-8" />
 				<meta
-					httpEquiv="X-UA-Compatible"
-					content="IE=edge"
-				/>
-				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1, shrink-to-fit=no"
 				/>
@@ -225,7 +220,7 @@ export default function RootLayout({
 					content="origin-when-cross-origin"
 				/>
 
-				{/* Preconnect to external domains */}
+				{/* Preconnect to external domains for faster resource loading */}
 				<link
 					rel="preconnect"
 					href="https://fonts.gstatic.com"
@@ -237,34 +232,21 @@ export default function RootLayout({
 					crossOrigin="anonymous"
 				/>
 				<link
+					rel="preconnect"
+					href="https://assets.chanhdai.com"
+					crossOrigin="anonymous"
+				/>
+				<link
 					rel="dns-prefetch"
 					href="https://fonts.gstatic.com"
 				/>
-
-				{/* Canonical (also provided via metadata) */}
 				<link
-					rel="canonical"
-					href={BASE_URL}
+					rel="dns-prefetch"
+					href="https://cdn.sanity.io"
 				/>
-
-				{/* Meta tags that some crawlers still expect */}
-				<meta
-					name="keywords"
-					content={
-						Array.isArray(metadata.keywords) ?
-							metadata.keywords.join(', ')
-						:	(metadata.keywords ?? '')
-					}
-				/>
-
-				{/* Author and copyright */}
-				<meta
-					name="author"
-					content="Roni Sarkar"
-				/>
-				<meta
-					name="copyright"
-					content="Roni Sarkar"
+				<link
+					rel="dns-prefetch"
+					href="https://assets.chanhdai.com"
 				/>
 			</head>
 			<body
@@ -274,8 +256,7 @@ export default function RootLayout({
 					defaultTheme="system"
 					enableSystem
 					disableTransitionOnChange>
-					<EasterEgg />
-					<CommandMenu />
+					<ClientShell />
 					<Header />
 					<BackToTop />
 
