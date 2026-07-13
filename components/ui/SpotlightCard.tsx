@@ -39,13 +39,13 @@ export const SpotlightCard = React.forwardRef<HTMLDivElement, SpotlightCardProps
             ref.current = node;
           }
         }}
-        onMouseMove={handleMouseMove}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
         className={cn(
           "relative overflow-hidden rounded-xl border bg-card text-card-foreground shadow",
           className
         )}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
         {...props}
       >
         <div

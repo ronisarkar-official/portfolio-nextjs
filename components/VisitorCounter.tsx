@@ -52,7 +52,7 @@ export default function VisitorCounter({
 				border border-border
 				backdrop-blur-sm
 				shadow-sm
-				transition-colors duration-200
+				transition-[background-color,border-color] duration-200
 				${className}`}>
 			<Eye className="w-4 h-4 text-muted-foreground" />
 			<span className="text-sm text-muted-foreground font-mono">
@@ -60,7 +60,7 @@ export default function VisitorCounter({
 					<span className="animate-pulse">Loading...</span>
 				:	<>
 						You are the{' '}
-						<span className="text-foreground font-semibold">
+						<span className="text-foreground font-semibold tabular-nums">
 							{count !== null && count > 0 ? formatOrdinal(count) : '1st'}
 						</span>{' '}
 						visitor

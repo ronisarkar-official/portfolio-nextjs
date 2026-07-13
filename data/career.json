@@ -5,12 +5,24 @@
 			"href": "/",
 			"title": "Full-Stack Developer (Student / Project Lead)",
 			"logo": "/freelancer.png",
-			"start": "Sep 2022",
+			"start": "Jul 2026",
 			"end": "",
 			"description": [
 				"Built and launched a full-featured Next.js blog with Tailwind CSS — including user authentication, an admin panel, post CRUD, SEO optimizations, search, and pagination.",
 				"Designed a clean MySQL schema and implemented server-side APIs in PHP, plus client-side validation and responsive UI for a smoother user experience.",
 				"Managed the project end-to-end: gathered requirements, implemented features, version-controlled the codebase with Git, and deployed the site — gaining hands-on experience with deployment and CI practices."
+			]
+		},{
+			"name": "3Skill Training",
+			"href": "https://3skill.in",
+			"title": "Web Development Intern",
+			"logo": "/3skill_logo.jpg",
+			"start": "May 2026",
+			"end": "Jul 2026",
+			"description": [
+				"Completed a 2-month Web Development Internship focused on practical, project-based learning aligned with industry expectations.",
+				"Worked hands-on with the Next.js, TypeScript, and Supabase stack, contributing to real production-grade features and workflows.",
+				"Strengthened professional development skills including code collaboration, deployment practices, and working within a structured team environment."
 			]
 		}
 	]

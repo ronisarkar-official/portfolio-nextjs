@@ -15,7 +15,7 @@ export default function TechStack() {
     <section className="space-y-4">
       <h2 className="text-3xl font-semibold text-foreground">Tech Stack</h2>
       
-      <div className="rounded-lg border border-edge bg-card p-3">
+      <div className="rounded-lg border bg-card p-3">
         <TooltipProvider>
           <ul className="flex flex-wrap gap-4 select-none">
             {TECH_STACK.map((tech) => {

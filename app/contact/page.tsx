@@ -2,8 +2,14 @@
 
 import { useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import emailjs from '@emailjs/browser';
-import { Toaster, toast } from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import { Send } from 'lucide-react';
+import { Input } from '@/components/ui/Input';
+import { Textarea } from '@/components/ui/Textarea';
+import { Label } from '@/components/ui/Label';
+import { Button } from '@/components/ui/Button';
+import SpringAnimated from '@/components/SpringAnimated';
+import { Toaster } from 'react-hot-toast';
 
 type FormState = {
 	firstName: string;
@@ -34,7 +40,7 @@ export default function Contact() {
 		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
 	) {
 		const { name, value } = e.target;
-		const key = name as keyof FormState; // satisfy TS that name is a key of our form state
+		const key = name as keyof FormState;
 		setForm((p) => ({ ...p, [key]: value }));
 	}
 
@@ -45,7 +51,6 @@ export default function Contact() {
 				ok: false,
 				message: 'Please fill required fields: First name, Email and Message.',
 			};
-		// Basic email check
 		const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		if (!emailRe.test(form.email))
 			return { ok: false, message: 'Please enter a valid email address.' };
@@ -93,121 +98,100 @@ export default function Contact() {
 		}
 	}
 
-	const inputBase =
-		'w-full mt-2 px-3 py-2 outline-none border shadow-sm rounded-lg focus:ring-0 focus:border-indigo-600';
-
 	return (
-		<main className="">
-			{/* Toaster - include once app-wide to avoid duplicates (you can remove this if you have a global Toaster) */}
+		<article className="flex min-h-[calc(100vh-12rem)] flex-col gap-8 pb-16 pt-8">
 			<Toaster position="top-right" />
 
-			<div className="max-w-screen-xl mx-auto px-4 text-gray-600 dark:text-gray-300 md:px-8">
-				<div className="max-w-lg mx-auto space-y-3 sm:text-center">
-					<p className="text-gray-800 dark:text-gray-100 text-3xl font-semibold sm:text-4xl">
-						Get in touch
-					</p>
-					<p className="text-gray-600 dark:text-gray-300">
-						We’d love to hear from you! Please fill out the form below.
-					</p>
-				</div>
+			<div className="flex flex-col gap-2 stagger-item">
+				<h1 className="title text-4xl font-bold">Get in touch</h1>
+				<p className="text-muted-foreground">
+					Have a project in mind or just want to say hi? Drop me a message.
+				</p>
+			</div>
 
-				<div className="mt-2 max-w-lg mx-auto">
-					<form
-						ref={formRef}
-						onSubmit={handleSubmit}
-						className="space-y-5"
-						aria-label="Contact form">
-						{/* Honeypot (visually hidden but accessible) */}
-						<label
-							style={{
-								position: 'absolute',
-								left: '-9999px',
-								top: 'auto',
-								width: '1px',
-								height: '1px',
-								overflow: 'hidden',
-							}}
-							aria-hidden={true}>
-							Don’t fill this out if you are human
-							<input
+			<div className="w-full max-w-xl mx-auto">
+				<form
+					ref={formRef}
+					onSubmit={handleSubmit}
+					className="space-y-6"
+					aria-label="Contact form">
+					<label
+						className="sr-only"
+						aria-hidden={true}>
+						Don&apos;t fill this out if you are human
+						<input
+							type="text"
+							name="honey"
+							value={form.honey}
+							onChange={handleChange}
+							autoComplete="off"
+							tabIndex={-1}
+						/>
+					</label>
+
+					<div className="flex flex-col gap-6 sm:flex-row">
+						<div className="flex-1 space-y-2 stagger-item">
+							<Label htmlFor="firstName">First name</Label>
+							<Input
+								id="firstName"
+								name="firstName"
 								type="text"
-								name="honey"
-								value={form.honey}
-								onChange={handleChange}
-								autoComplete="off"
-								tabIndex={-1}
-								className="sr-only"
-							/>
-						</label>
-
-						<div className="flex flex-col items-center gap-y-5 gap-x-6 [&>*]:w-full sm:flex-row">
-							<div>
-								<label className="font-medium text-gray-800 dark:text-gray-100">
-									First name
-								</label>
-								<input
-									name="firstName"
-									type="text"
-									value={form.firstName}
-									onChange={handleChange}
-									required
-									className={`${inputBase} text-gray-700 bg-white dark:bg-black dark:text-gray-100 border-gray-200 dark:border-gray-700`}
-								/>
-							</div>
-
-							<div>
-								<label className="font-medium text-gray-800 dark:text-gray-100">
-									Last name
-								</label>
-								<input
-									name="lastName"
-									type="text"
-									value={form.lastName}
-									onChange={handleChange}
-									className={`${inputBase} text-gray-700 bg-white dark:bg-black dark:text-gray-100 border-gray-200 dark:border-gray-700`}
-								/>
-							</div>
-						</div>
-
-						<div>
-							<label className="font-medium text-gray-800 dark:text-gray-100">
-								Email
-							</label>
-							<input
-								name="email"
-								type="email"
-								value={form.email}
+								value={form.firstName}
 								onChange={handleChange}
 								required
-								className={`${inputBase} text-gray-700 bg-white dark:bg-black dark:text-gray-100 border-gray-200 dark:border-gray-700`}
+								placeholder="John"
 							/>
 						</div>
-
-						<div>
-							<label className="font-medium text-gray-800 dark:text-gray-100">
-								Message
-							</label>
-							<textarea
-								name="message"
-								value={form.message}
+						<div className="flex-1 space-y-2 stagger-item">
+							<Label htmlFor="lastName">Last name</Label>
+							<Input
+								id="lastName"
+								name="lastName"
+								type="text"
+								value={form.lastName}
 								onChange={handleChange}
-								required
-								className={`${inputBase} h-36 px-3 py-2 resize-none appearance-none text-gray-700 bg-white dark:bg-black dark:text-gray-100 border-gray-200 dark:border-gray-700`}
+								placeholder="Doe"
 							/>
 						</div>
+					</div>
 
-						<button
+					<div className="space-y-2 stagger-item">
+						<Label htmlFor="email">Email</Label>
+						<Input
+							id="email"
+							name="email"
+							type="email"
+							value={form.email}
+							onChange={handleChange}
+							required
+							placeholder="john@example.com"
+						/>
+					</div>
+
+					<div className="space-y-2 stagger-item">
+						<Label htmlFor="message">Message</Label>
+						<Textarea
+							id="message"
+							name="message"
+							value={form.message}
+							onChange={handleChange}
+							required
+							placeholder="What's on your mind?"
+							className="min-h-[160px] resize-y"
+						/>
+					</div>
+
+					<SpringAnimated className="stagger-item">
+						<Button
 							type="submit"
 							disabled={loading}
-							className={`w-full flex items-center justify-center gap-2 px-4 py-2 font-medium rounded-lg transition-transform duration-150  disabled:opacity-60 disabled:cursor-not-allowed active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-indigo-500 ${
-								loading ? ' text-white' : ' hover:bg-gray-900 border dark:text-white text-black'
-							}`}
+							className="w-full"
 							aria-busy={loading}
 							aria-live="polite">
-							{loading ?
+							{loading ? (
 								<>
 									<svg
-										className="h-5 w-5 animate-spin"
+										className="h-4 w-4 animate-spin"
 										viewBox="0 0 24 24"
 										fill="none"
 										xmlns="http://www.w3.org/2000/svg"
@@ -226,18 +210,19 @@ export default function Contact() {
 											d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
 										/>
 									</svg>
-									<span>Sending...</span>
+									Sending...
 									<span className="sr-only">Sending</span>
 								</>
-							:	<>
-									<span>Submit</span>
-									<Send />
+							) : (
+								<>
+									Send message
+									<Send className="size-4" />
 								</>
-							}
-						</button>
-					</form>
-				</div>
+							)}
+						</Button>
+					</SpringAnimated>
+				</form>
 			</div>
-		</main>
+		</article>
 	);
 }

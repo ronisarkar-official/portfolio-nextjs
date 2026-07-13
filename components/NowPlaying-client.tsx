@@ -50,13 +50,13 @@ export default function NowPlayingClient({ initialData }: Props) {
 				<div className="flex items-center gap-3 p-3">
 					{/* Album artwork or Spotify icon */}
 					{data.albumImageUrl ?
-						<div className="relative w-14 h-14 flex-shrink-0 rounded-md overflow-hidden border ">
+						<div className="relative w-14 h-14 flex-shrink-0 rounded-md overflow-hidden [box-shadow:var(--shadow-border)]">
 							<Image
 								src={data.albumImageUrl}
 								alt={data.album ?? 'Album artwork'}
 								fill
 								sizes="56px"
-								className="object-cover"
+								className="object-cover outline outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10"
 								unoptimized
 								priority={false}
 							/>

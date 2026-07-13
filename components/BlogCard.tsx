@@ -19,7 +19,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
 		<Link
 			key={post.slug}
 			href={`/blog/${post.slug}`}
-			className="p-4 border rounded-lg min-h-80 max-h-80 flex flex-col overflow-hidden"
+			className="p-4 border rounded-lg min-h-80 max-h-80 flex flex-col overflow-hidden hover:[box-shadow:var(--shadow-border-hover)] transition-[box-shadow] duration-150 ease-out"
 			aria-label={`Read post: ${post.title}`}>
 			{post.coverImage ? (
 				<div className="relative border rounded-lg overflow-hidden mb-2 h-48 flex-shrink-0">
@@ -28,7 +28,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
 						alt={post.title || 'Blog post cover'}
 						fill
 						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-						className="object-cover"
+						className="object-cover outline outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10"
 						loading="lazy"
 					/>
 				</div>

@@ -83,7 +83,7 @@ export default async function Home() {
 
 					<div
 						data-slot="panel-body"
-						className=" space-y-2 mt-4">
+						className="space-y-2 mt-4 stagger-item">
 						<div className="flex items-center gap-4 font-mono text-sm">
 							<div
 								className="flex size-6 shrink-0 items-center justify-center rounded-lg "
@@ -156,7 +156,7 @@ export default async function Home() {
 						</div>
 					</div>
 
-					<section className="mt-6 flex flex-wrap items-center gap-4">
+					<section className="mt-6 flex flex-wrap items-center gap-4 stagger-item">
 						<SpringAnimated>
 							<Link
 								href={resumeUrl}

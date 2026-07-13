@@ -41,7 +41,7 @@ function AwardRightIcons({ award }: { award: Award }) {
 				<Tooltip>
 					<TooltipTrigger asChild>
 						<a
-							className="flex size-7 items-center justify-center rounded-md hover:text-muted-foreground transition-colors"
+							className="relative flex size-7 items-center justify-center rounded-md hover:text-muted-foreground transition-[color] duration-150 after:absolute after:top-1/2 after:left-1/2 after:size-11 after:-translate-1/2"
 							href={award.referenceLink}
 							target="_blank"
 							rel="noopener noreferrer"

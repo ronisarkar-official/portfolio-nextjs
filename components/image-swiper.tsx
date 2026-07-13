@@ -214,14 +214,15 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = memo(({
 				<div
 					key={`${imageList[originalIndex]}-${originalIndex}`}
 					className="image-card absolute cursor-grab active:cursor-grabbing
-                     place-self-center border border-slate-400 rounded-xl
-                     shadow-md overflow-hidden will-change-transform"
-					style={
-						{
+                     place-self-center rounded-xl
+                     overflow-hidden will-change-transform"
+					style=
+						{{
 							'--i': (displayIndex + 1).toString(),
 							zIndex: imageList.length - displayIndex,
 							width: cardWidth,
 							height: cardHeight,
+							boxShadow: 'var(--shadow-border)',
 							transform: `perspective(var(--card-perspective))
                        translateZ(calc(-1 * var(--card-z-offset) * var(--i)))
                        translateY(calc(var(--card-y-offset) * var(--i)))
@@ -234,7 +235,7 @@ export const ImageSwiper: React.FC<ImageSwiperProps> = memo(({
 						alt={`Profile image ${originalIndex + 1}`}
 						fill
 						sizes="225px"
-						className="object-cover select-none pointer-events-none"
+						className="object-cover select-none pointer-events-none outline outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10"
 						draggable={false}
 						priority={originalIndex === 0}
 					/>

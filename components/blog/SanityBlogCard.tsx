@@ -22,7 +22,7 @@ const SanityBlogCard: React.FC<SanityBlogCardProps> = ({ post }) => {
 		<Link
 			key={post._id}
 			href={`/blog/${post.slug}`}
-			className="p-4 border rounded-lg min-h-80 max-h-80 flex flex-col overflow-hidden"
+			className="p-4 border rounded-lg min-h-80 max-h-80 flex flex-col overflow-hidden hover:[box-shadow:var(--shadow-border-hover)] transition-[box-shadow] duration-150 ease-out"
 			aria-label={`Read post: ${post.title}`}>
 			{post.mainImage?.url ? (
 				<div className="relative border rounded-lg overflow-hidden mb-2 h-48 flex-shrink-0">
@@ -31,7 +31,7 @@ const SanityBlogCard: React.FC<SanityBlogCardProps> = ({ post }) => {
 						alt={post.mainImage.alt || post.title}
 						fill
 						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-						className="object-cover"
+						className="object-cover outline outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10"
 						loading="lazy"
 					/>
 				</div>

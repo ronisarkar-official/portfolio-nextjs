@@ -94,7 +94,7 @@ export default function BackToTop({
 					width: size,
 					height: size,
 				}}
-				className={`pointer-events-auto flex items-center justify-center rounded-md shadow-lg transition-all duration-300 transform focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900 focus-visible:ring-indigo-500
+				className={`pointer-events-auto flex items-center justify-center rounded-md shadow-lg transition-[opacity,transform] duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900 focus-visible:ring-indigo-500
           ${
 						visible ?
 							'opacity-100 translate-y-0 scale-100'

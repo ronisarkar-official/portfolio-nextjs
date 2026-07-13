@@ -27,5 +27,5 @@ export default function LocalTime() {
 	// Prevent hydration mismatch by not rendering until client-side
 	if (!time) return null;
 
-	return <span>{time} IST</span>;
+	return <span className="tabular-nums">{time} IST</span>;
 }

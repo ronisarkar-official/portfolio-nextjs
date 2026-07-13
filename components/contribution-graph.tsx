@@ -71,10 +71,7 @@ function buildContributionGrid(
 	const endTs = todayTs + (6 - endDay) * MS_PER_DAY;
 	const startTs = endTs - (WEEKS * 7 - 1) * MS_PER_DAY;
 
-	const weeks: Activity[][] = Array.from(
-		{ length: WEEKS },
-		() => new Array(7),
-	);
+	const weeks: Activity[][] = Array.from({ length: WEEKS }, () => new Array(7));
 	const monthLabels = new Array(WEEKS).fill('');
 	const shown = new Set<number>();
 
@@ -120,81 +117,87 @@ export default async function ContributionGraph({
 		buildContributionGrid(data, squareSize, gap);
 
 	return (
-		<div
-			className={`relative overflow-x-auto md:overflow-x-visible max-w-full ${className}`}
-			style={{ width: width + 'px' }}>
-			{/* Header with Total Contributions */}
-			<div className="flex items-center justify-between mb-4 px-6 md:px-0">
-				<div className="flex flex-col">
-					<h2 className="text-3xl font-semibold text-foreground">
-						GitHub Activity
-					</h2>
-					<span className="text-md text-muted-foreground">
-						Total: {totalContributions} contributions
-					</span>
+		<><div className="flex items-center justify-between  px-6 md:px-0">
+					<div className="flex flex-col">
+						<h2 className="text-3xl font-semibold text-foreground">
+							GitHub Activity
+						</h2>
+						<span className="text-md text-muted-foreground">
+							Total: {totalContributions} contributions
+						</span>
+					</div>
+				</div>
+			<div
+				className={`relative overflow-x-auto md:overflow-x-visible max-w-full ${className}`}
+				style={{ width: width + 'px' }}>
+				{/* Header with Total Contributions */}
+				
+
+				{/* Month labels row */}
+				<div
+					className="flex mb-1 text-xs text-muted-foreground flex-row ml-2 md:ml-2"
+					style={{ marginBottom: 6 }}>
+					<div style={{ width: squareSize }} />
+					{/* spacer for weekday column */}
+					{monthLabels.map((m, i) => (
+						<div
+							key={i}
+							style={{
+								width: squareSize,
+								marginRight: gap,
+								textAlign: 'center',
+							}}
+							aria-hidden
+							className="text-center flex-shrink-0">
+							{m || ''}
+						</div>
+					))}
+				</div>
+
+				<div className='flex'>
+					{/* SVG grid with client-side tooltip */}
+					<ContributionGraphClient>
+						<svg
+							width={width}
+							height={height}
+							role="img"
+							aria-label="Contribution graph">
+							{weeks.map((week, wi) =>
+								week.map((cell, di) => {
+									const x = wi * (squareSize + gap);
+									const y = di * (squareSize + gap);
+									// use CSS variables so theme switching is handled by CSS only
+									const level = Math.max(
+										0,
+										Math.min(Math.floor(cell.level ?? 0), 4),
+									);
+									const fill = `var(--contrib-${level})`;
+									const stroke =
+										cell.count === 0 ? 'var(--contrib-stroke)' : 'none';
+									return (
+										<rect
+											key={`${wi}-${di}`}
+											x={x}
+											y={y}
+											width={squareSize}
+											height={squareSize}
+											rx={2}
+											style={{ fill, stroke }}
+											data-date={cell.date}
+											data-count={String(cell.count)}
+											data-level={String(level)}
+											role="gridcell"
+											aria-label={`${cell.date}: ${cell.count} contribution${
+												cell.count !== 1 ? 's' : ''
+											}`}
+										/>
+									);
+								}),
+							)}
+						</svg>
+					</ContributionGraphClient>
 				</div>
 			</div>
-
-			{/* Month labels row */}
-			<div
-				className="flex mb-1 text-xs text-muted-foreground flex-row ml-2 md:ml-2"
-				style={{ marginBottom: 6 }}>
-				<div style={{ width: squareSize }} />
-				{/* spacer for weekday column */}
-				{monthLabels.map((m, i) => (
-					<div
-						key={i}
-						style={{ width: squareSize, marginRight: gap, textAlign: 'center' }}
-						aria-hidden
-						className="text-center flex-shrink-0">
-						{m || ''}
-					</div>
-				))}
-			</div>
-
-			<div style={{ display: 'flex' }}>
-				{/* SVG grid with client-side tooltip */}
-				<ContributionGraphClient>
-					<svg
-						width={width}
-						height={height}
-						role="img"
-						aria-label="Contribution graph">
-						{weeks.map((week, wi) =>
-							week.map((cell, di) => {
-								const x = wi * (squareSize + gap);
-								const y = di * (squareSize + gap);
-								// use CSS variables so theme switching is handled by CSS only
-								const level = Math.max(
-									0,
-									Math.min(Math.floor(cell.level ?? 0), 4),
-								);
-								const fill = `var(--contrib-${level})`;
-								const stroke =
-									cell.count === 0 ? 'var(--contrib-stroke)' : 'none';
-								return (
-									<rect
-										key={`${wi}-${di}`}
-										x={x}
-										y={y}
-										width={squareSize}
-										height={squareSize}
-										rx={2}
-										style={{ fill, stroke }}
-										data-date={cell.date}
-										data-count={String(cell.count)}
-										data-level={String(level)}
-										role="gridcell"
-										aria-label={`${cell.date}: ${cell.count} contribution${
-											cell.count !== 1 ? 's' : ''
-										}`}
-									/>
-								);
-							}),
-						)}
-					</svg>
-				</ContributionGraphClient>
-			</div>
-		</div>
+		</>
 	);
 }

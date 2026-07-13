@@ -14,7 +14,7 @@ export default function SpringAnimated({
   children, 
   className = "",
   hoverScale = 1.05,
-  tapScale = 0.95,
+  tapScale = 0.96,
   ...props
 }: SpringAnimatedProps) {
   return (

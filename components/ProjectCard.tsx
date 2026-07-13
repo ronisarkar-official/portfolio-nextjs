@@ -23,13 +23,13 @@ export function ProjectCard({ project }: Props) {
 		<SpotlightCard className="flex flex-col">
 			<CardHeader>
 				{image && (
-					<div className="relative w-full max-w-[500px] aspect-[5/3] border border-border dark:border-gray-700 dark:bg-gray-800/50 rounded-xl overflow-hidden">
+					<div className="relative w-full max-w-[500px] aspect-[5/3] border dark:bg-gray-800/50 rounded-xl overflow-hidden">
 						<Image
 							src={image}
 							alt={`${name} project screenshot`}
 							fill
 							sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 500px"
-							className=" object-top"
+							className="object-top outline outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10"
 							loading="lazy"
 						/>
 					</div>
