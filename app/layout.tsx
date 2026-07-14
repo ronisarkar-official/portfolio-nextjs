@@ -262,7 +262,7 @@ export default function RootLayout({
 
 					<div className="mx-auto flex max-w-4xl flex-col px-8">
 						<main className="grow">{children}</main>
-					</div>
+					</div>			
 					<Footer />
 				</ThemeProvider>
 

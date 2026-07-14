@@ -186,8 +186,7 @@ export default async function ContributionGraph({
 											data-date={cell.date}
 											data-count={String(cell.count)}
 											data-level={String(level)}
-											role="gridcell"
-											aria-label={`${cell.date}: ${cell.count} contribution${
+										aria-label={`${cell.date}: ${cell.count} contribution${
 												cell.count !== 1 ? 's' : ''
 											}`}
 										/>

@@ -66,11 +66,14 @@ function AwardMeta({ award }: { award: Award }) {
 				{award.title}
 			</h3>
 			<dl className="mt-1 flex flex-wrap items-center gap-x-3 text-xs text-muted-foreground">
+				<dt className="sr-only">Prize</dt>
 				<dd>{award.prize}</dd>
 				<Separator
 					orientation="vertical"
 					className="!h-3 !w-px"
+					aria-hidden="true"
 				/>
+				<dt className="sr-only">Date</dt>
 				<dd>
 					<time dateTime={new Date(award.date).toISOString()}>
 						{format(new Date(award.date), 'MM.yyyy')}
@@ -79,7 +82,9 @@ function AwardMeta({ award }: { award: Award }) {
 				<Separator
 					orientation="vertical"
 					className="!h-3 !w-px"
+					aria-hidden="true"
 				/>
+				<dt className="sr-only">Grade</dt>
 				<dd>{award.grade}</dd>
 			</dl>
 		</div>

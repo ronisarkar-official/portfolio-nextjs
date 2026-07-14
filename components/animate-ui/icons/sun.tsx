@@ -52,6 +52,7 @@ function IconComponent({ size, ...props }: SunProps) {
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
+      aria-hidden="true"
       initial="initial"
       animate={controls}
       {...props}

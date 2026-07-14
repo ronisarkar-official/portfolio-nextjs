@@ -44,17 +44,21 @@ export default async function Home() {
 	const posts = (await getAllSanityPosts()).slice(0, LIMIT);
 	const settings = await getSiteSettings();
 	const awards = await getAwards();
-	const resumeUrl = settings?.resumeUrl || 'https://drive.google.com/file/d/1LUALqh7wvyjfcw2xyT4ofS5aQALpxD6l/view';
-	
+	const resumeUrl =
+		settings?.resumeUrl ||
+		'https://drive.google.com/file/d/1LUALqh7wvyjfcw2xyT4ofS5aQALpxD6l/view';
+
 	// Use hero images from Sanity or fallback to default
-	const imageUrls = settings?.heroImages && settings.heroImages.length > 0
-		? settings.heroImages.map((img: { url: string }) => img.url).join(',')
-		: 'https://ik.imagekit.io/2zeqzsn1n/p-images/hero.webp?,https://ik.imagekit.io/2zeqzsn1n/p-images/profile3.webp';
+	const imageUrls =
+		settings?.heroImages && settings.heroImages.length > 0 ?
+			settings.heroImages.map((img: { url: string }) => img.url).join(',')
+		:	'https://ik.imagekit.io/2zeqzsn1n/p-images/hero.webp?,https://ik.imagekit.io/2zeqzsn1n/p-images/profile3.webp';
 
 	// Use rotating titles from Sanity or fallback to default
-	const rotatingTitles = settings?.rotatingTitles && settings.rotatingTitles.length > 0
-		? settings.rotatingTitles
-		: ['Full-Stack Developer', 'UI/UX Enthusiast', 'Open Source Contributor'];
+	const rotatingTitles =
+		settings?.rotatingTitles && settings.rotatingTitles.length > 0 ?
+			settings.rotatingTitles
+		:	['Full-Stack Developer', 'UI/UX Enthusiast', 'Open Source Contributor'];
 
 	// Contact information from Sanity or fallback to defaults
 	const email = settings?.email || 'ronisarkar10938@gmail.com';
@@ -64,7 +68,9 @@ export default async function Home() {
 		<article className="mt-8 flex flex-col gap-6 pb-16 ">
 			<section className="flex flex-col items-start gap-8 md:flex-row-reverse md:items-center md:justify-between">
 				<div className="mx-auto md:mr-0 md:mx-0">
-					<SpringAnimated hoverScale={1.02} tapScale={0.98}>
+					<SpringAnimated
+						hoverScale={1.02}
+						tapScale={0.98}>
 						<ImageSwiper
 							images={imageUrls}
 							className="h-[233px] w-[175px] rounded-lg object-cover sm:h-[300px] sm:w-[225px]"
@@ -188,10 +194,10 @@ export default async function Home() {
 				<Projects limit={LIMIT} />
 			</section>
 			<About />
-			
+
 			<TechStack />
 			<ContributionGraph />
-			
+
 			<Experience />
 			<Achievements awards={awards} />
 			<section className="flex flex-col gap-8">
@@ -209,13 +215,16 @@ export default async function Home() {
 				</div>
 				<div className="grid gap-4 md:grid-cols-2 items-stretch">
 					{posts.map((post) => (
-						<SpringAnimated key={post._id} hoverScale={1.02} className="h-full">
+						<SpringAnimated
+							key={post._id}
+							hoverScale={1.02}
+							className="h-full">
 							<SanityBlogCard post={post} />
 						</SpringAnimated>
 					))}
 				</div>
 			</section>
-			<BelowFoldWidgets />
+			<BelowFoldWidgets />			
 		</article>
 	);
 }

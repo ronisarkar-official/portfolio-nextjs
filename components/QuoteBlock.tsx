@@ -150,7 +150,7 @@ export function QuoteBlock({ ttl = CACHE_TTL_MS }: { ttl?: number }) {
           <div className="flex flex-col gap-4">
             <div className="relative z-10">
               <Quote className="mb-4 h-10 w-10 text-zinc-400/40 dark:text-zinc-300/20" />
-              <p className="font-serif text-lg italic leading-relaxed text-zinc-900 dark:text-white/90 md:text-xl">
+              <p className="text-lg italic leading-relaxed text-zinc-900 dark:text-white/90 md:text-xl">
                 &ldquo;{quote?.quote ?? 'No quote available'}&rdquo;
               </p>
             </div>

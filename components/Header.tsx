@@ -75,7 +75,7 @@ export default function Header() {
 							onClick={() =>
 								document.dispatchEvent(new CustomEvent('toggle-command-menu'))
 							}
-							aria-label="Open command menu">
+							aria-label="Search">
 							<Search className="size-4" />
 							<span className="text-xs">Search..</span>
 							<Kbd>⌘</Kbd>
@@ -118,6 +118,7 @@ export default function Header() {
 				<div
 					role="dialog"
 					aria-modal="true"
+					aria-label="Navigation menu"
 					className="sm:hidden fixed inset-0 z-[60] bg-background/80 backdrop-blur">
 					<div className="mx-auto max-w-3xl px-8">
 						<div

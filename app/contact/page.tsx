@@ -115,9 +115,8 @@ export default function Contact() {
 					onSubmit={handleSubmit}
 					className="space-y-6"
 					aria-label="Contact form">
-					<label
-						className="sr-only"
-						aria-hidden={true}>
+					<div aria-hidden="true" className="sr-only">
+					<label>
 						Don&apos;t fill this out if you are human
 						<input
 							type="text"
@@ -128,6 +127,7 @@ export default function Contact() {
 							tabIndex={-1}
 						/>
 					</label>
+				</div>
 
 					<div className="flex flex-col gap-6 sm:flex-row">
 						<div className="flex-1 space-y-2 stagger-item">
