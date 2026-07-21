@@ -113,10 +113,11 @@ async function getLastFmData(): Promise<SpotifyData | null> {
 				// Get album image from Last.fm if available
 				let albumImageUrl: string | undefined;
 				if (track.image && track.image.length > 0) {
-					// Use the largest image available
 					const images = track.image.filter((img: any) => img['#text']);
 					if (images.length > 0) {
-						albumImageUrl = images[images.length - 1]['#text'];
+						// Use large (index 2, ~174x174) instead of extralarge (300x300)
+						const idx = Math.min(2, images.length - 1);
+						albumImageUrl = images[idx]['#text'];
 					}
 				}
 

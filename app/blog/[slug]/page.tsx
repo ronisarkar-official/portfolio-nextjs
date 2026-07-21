@@ -69,7 +69,7 @@ export async function generateMetadata({
         : [],
     },
     alternates: {
-      canonical: `https://ronisarkar.spechype.com/blog/${slug}`,
+      canonical: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://roni-sarkar.vercel.app'}/blog/${slug}`,
     },
   };
 }
@@ -84,36 +84,48 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   const readingTime = calculateReadingTime(post.body);
 
-  // JSON-LD for Article
-  const articleJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: post.title,
-    image: post.mainImage?.asset
-      ? [urlFor(post.mainImage).width(1200).url()]
-      : [],
-    datePublished: post.publishedAt,
-    dateModified: post._updatedAt,
-    author: {
-      '@type': 'Person',
-      name: post.author.name,
-      url: post.author.social?.website || 'https://ronisarkar.spechype.com',
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Roni Sarkar',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://ronisarkar.spechype.com/favicon.ico',
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://roni-sarkar.vercel.app';
+
+  const articleJsonLd = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: post.title,
+      image: post.mainImage?.asset
+        ? [urlFor(post.mainImage).width(1200).url()]
+        : [],
+      datePublished: post.publishedAt,
+      dateModified: post._updatedAt,
+      author: {
+        '@type': 'Person',
+        name: post.author.name,
+        url: post.author.social?.website || baseUrl,
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Roni Sarkar',
+        logo: {
+          '@type': 'ImageObject',
+          url: `${baseUrl}/favicon.ico`,
+        },
+      },
+      description: post.excerpt,
+      keywords: post.seo?.metaKeywords?.join(', '),
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': `${baseUrl}/blog/${slug}`,
       },
     },
-    description: post.excerpt,
-    keywords: post.seo?.metaKeywords?.join(', '),
-    mainEntityOfPage: {
-      '@type': 'WebPage',
-      '@id': `https://ronisarkar.spechype.com/blog/${slug}`,
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: baseUrl },
+        { '@type': 'ListItem', position: 2, name: 'Blogs', item: `${baseUrl}/blog` },
+        { '@type': 'ListItem', position: 3, name: post.title, item: `${baseUrl}/blog/${slug}` },
+      ],
     },
-  };
+  ];
 
   return (
     <div className="min-h-screen bg-background">

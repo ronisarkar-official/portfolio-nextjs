@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 		type: 'website',
 		images: [
 			{
-				url: 'https://ik.imagekit.io/2zeqzsn1n/portfolio-image1.webp?',
+				url: 'https://ik.imagekit.io/2zeqzsn1n/portfolio-image1.webp',
 				width: 1200,
 				height: 630,
 				alt: 'Roni Sarkar — Software Engineer & Web Developer',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
 			'Portfolio of Roni Sarkar — projects, skills, and contact for hired work.',
 		creator: '@ronisarkarDev',
 		site: '@ronisarkarDev',
-		images: ['https://ik.imagekit.io/2zeqzsn1n/portfolio-image1.webp?'],
+		images: ['https://ik.imagekit.io/2zeqzsn1n/portfolio-image1.webp'],
 	},
 	robots: {
 		index: true,
@@ -103,7 +103,7 @@ export default function RootLayout({
 			'@type': 'Person',
 			name: 'Roni Sarkar',
 			url: BASE_URL,
-			image: 'https://ik.imagekit.io/2zeqzsn1n/portfolio-image1.webp?',
+			image: 'https://ik.imagekit.io/2zeqzsn1n/portfolio-image1.webp',
 			sameAs: [
 				'https://github.com/ronisarkar-official',
 				'https://www.linkedin.com/in/ronisarkar',
@@ -176,7 +176,6 @@ export default function RootLayout({
 			lang="en"
 			suppressHydrationWarning>
 			<head>
-				{/* Essential meta tags */}
 				<meta charSet="utf-8" />
 				<meta
 					name="viewport"
